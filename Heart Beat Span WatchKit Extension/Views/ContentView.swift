@@ -14,15 +14,52 @@ struct ContentView: View {
     
     @ViewBuilder
     var body: some View {
-        Button(action: state.startTracking) {
-            Text("Start")
-        }
-        Button(action: { self.showSettings = true }) {
-            Text("Edit")
-        }.sheet(isPresented: $showSettings) {
-            SettingsView(upperLimit: 0, lowerLimit: 0)
-                .environmentObject(AppState())
+        VStack {
+            Spacer(minLength: 20)
+            HStack {
+                Text("♡ 100")
+                    .font(Font.system(size: 38))
+                    .padding(0)
+                    .frame(
+                        minWidth: 0,
+                        maxWidth: .infinity,
+                        minHeight: 50,
+                        maxHeight: .infinity,
+                        alignment: Alignment.trailing
+                    )
+                VStack {
+                    Text("\(state.upperLimit) ⤒")
+                        .frame(
+                            minWidth: 0,
+                            maxWidth: 50,
+                            minHeight: 0,
+                            maxHeight: .infinity,
+                            alignment: Alignment.trailing
+                        )
+                    Text("\(state.lowerLimit) ⤓")
+                        .frame(
+                            minWidth: 0,
+                            maxWidth: 50,
+                            minHeight: 0,
+                            maxHeight: .infinity,
+                            alignment: Alignment.trailing
+                        )
+                }.foregroundColor(Color.gray)
+            }
+            Divider()
+            Button(action: state.startTracking) {
+                Text("Track")
+                    .foregroundColor(Color.yellow)
+            }
+            Button(action: { self.showSettings = true }) {
+                Text("Edit")
+            }.sheet(isPresented: $showSettings) {
+                SettingsView(
+                    upperLimit: self.state.upperLimit,
+                    lowerLimit:  self.state.lowerLimit
+                ).environmentObject(self.state)
                 .navigationBarTitle("")
+            }
         }
     }
 }

@@ -17,22 +17,26 @@ enum UIStateEnum: String {
 }
 
 final class AppState: ObservableObject {
-    @Published var startRange = 60
-    @Published var selectableRange = 120
     @Published var uiState: UIStateEnum = UIStateEnum.Stopped
+    @Published var upperLimit = 0
+    @Published var lowerLimit = 0
     
-    private let filename = "heart_beat_span_appstate"
-    private let fileExtension = ".txt"
-    private let sampler = Sampler()
+    static let startRange = 60
+    static let selectableRange = 120
+    
+    private let file = FileManager()
+    private let sampler = SampleManager()
     
     func loadData() {
-        print("Add logic to save Data")
+        let data = file.load()
+        self.upperLimit = data.upperLimit
+        self.lowerLimit = data.lowerLimit
     }
     
     func saveData(_ upperLimit: Int, _ lowerLimit: Int) {
-        let max = upperLimit + startRange
-        let min = lowerLimit + startRange
-        print("Add logic to save Data \(min) \(max)")
+        self.upperLimit = upperLimit
+        self.lowerLimit = lowerLimit
+        self.file.write(data: FileData(upperLimit, lowerLimit))
     }
         
     func startTracking() {

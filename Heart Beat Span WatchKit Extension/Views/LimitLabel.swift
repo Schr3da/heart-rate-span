@@ -15,43 +15,28 @@ enum LimitType: String {
 
 struct LimitLabel: View {
     @Binding var value: Int;
-    
+
     var body: some View {
         VStack {
             Text("Upper Limit")
-                .font(Font.system(size: 18.0))
-                .frame(
-                    minWidth: 18.0,
-                    maxWidth: CGFloat.infinity,
-                    minHeight: 0.0,
-                    maxHeight: 18.0,
-                    alignment: Alignment.leading
-            )
-            
+                .font(Font.system(size: 14.0))
             HStack {
+                Text("♡")
+                    .font(Font.system(size: 24.0))
+                    .foregroundColor(Color.gray)
                 Picker(selection: $value, label: Text("")) {
-                    ForEach(60 ..< 181) {
-                        Text(String($0))
+                    ForEach((AppState.startRange ... AppState.startRange + AppState.selectableRange), id: \.self) { t in
+                        Text(String(t))
                             .font(Font.system(size: 32.0))
                     }
-                }
-            
-                Image(systemName: "arrow.up.to.line")
+                }.frame(
+                    minWidth: 30,
+                    minHeight: 50
+                )
+                Text("⤒")
                     .font(Font.system(size: 24.0))
-                    .foregroundColor(Color.red)
-                    .offset(x: 0, y: 2)
-                    .frame(
-                        minWidth: 0.0,
-                        maxWidth: CGFloat.infinity,
-                        minHeight: 0.0,
-                        maxHeight: CGFloat.infinity,
-                        alignment: Alignment.leading)
+                    .foregroundColor(Color.gray)
             }
-        }.frame(
-            minWidth: 0,
-            maxWidth: CGFloat.infinity,
-            minHeight: 72,
-            maxHeight: CGFloat.infinity
-        )
+        }
     }
 }

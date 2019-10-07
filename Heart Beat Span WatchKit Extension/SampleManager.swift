@@ -8,7 +8,7 @@
 
 import HealthKit
 
-class Sampler {
+class SampleManager {
     
     private var store = HKHealthStore()
     

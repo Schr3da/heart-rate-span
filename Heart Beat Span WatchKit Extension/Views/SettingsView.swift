@@ -26,12 +26,14 @@ struct SettingsView: View {
                     self.state.saveData(self.upperLimit, self.lowerLimit)
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
-                    Text("Save").foregroundColor(Color.blue)
+                    Text("Save")
+                        .foregroundColor(Color.blue)
                 }
                 Button (action: {
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
-                    Text("Cancel").foregroundColor(Color.white)
+                    Text("Cancel")
+                        .foregroundColor(Color.red)
                 }
             }
         }
