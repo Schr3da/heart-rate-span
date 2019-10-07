@@ -25,7 +25,7 @@ struct LimitLabel: View {
                     .font(Font.system(size: 24.0))
                     .foregroundColor(Color.gray)
                 Picker(selection: $value, label: Text("")) {
-                    ForEach((AppState.startRange ... AppState.startRange + AppState.selectableRange), id: \.self) { t in
+                    ForEach((AppState.startRange ... AppState.endRange), id: \.self) { t in
                         Text(String(t))
                             .font(Font.system(size: 32.0))
                     }

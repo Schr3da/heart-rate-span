@@ -23,7 +23,7 @@ final class AppState: ObservableObject {
     @Published var heartrate = "-"
     
     static let startRange = 60
-    static let selectableRange = 120
+    static let endRange = 180
     
     private let file = FileManager()
     private let sampler = SampleManager()
