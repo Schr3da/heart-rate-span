@@ -47,9 +47,15 @@ struct ContentView: View {
                 }.foregroundColor(Color.gray)
             }
             Divider()
-            Button(action: state.startTracking) {
-                Text("Track")
-                    .foregroundColor(Color.yellow)
+            Button(action: {
+                self.state.uiState == UIStateEnum.Running ?
+                    self.state.stopTracking() : self.state.startTracking()
+            }) {
+                Text(state.uiState == UIStateEnum.Running ? "Stop" : "Track")
+                    .foregroundColor(
+                        state.uiState == UIStateEnum.Running ?
+                        Color.red : Color.yellow
+                    )
             }
             Button(action: { self.showSettings = true }) {
                 Text("Edit")
@@ -59,7 +65,8 @@ struct ContentView: View {
                     lowerLimit:  self.state.lowerLimit
                 ).environmentObject(self.state)
                 .navigationBarTitle("")
-            }
+            }.opacity(state.uiState == UIStateEnum.Running ? 0.75 : 1)
+                .disabled(state.uiState == UIStateEnum.Running)
         }
     }
 }
