@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14868" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14643"/>
+    </dependencies>
+    <scenes>
+        <!--HPS-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller title="HPS" alwaysBounce="YES" fullBounds="YES" id="AgC-eL-Hgc" customClass="HostingController" customModule="Heart_Beat_Span_WatchKit_Extension"/>
+            </objects>
+            <point key="canvasLocation" x="-310" y="30"/>
+        </scene>
+    </scenes>
+</document>
