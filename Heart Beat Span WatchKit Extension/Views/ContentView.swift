@@ -25,7 +25,7 @@ struct ContentView: View {
                         maxWidth: .infinity,
                         minHeight: 50,
                         maxHeight: .infinity,
-                        alignment: Alignment.trailing
+                        alignment: Alignment.leading
                     )
                 VStack {
                     Text("\(state.upperLimit) ⤒")
