@@ -31,7 +31,7 @@ struct LimitLabel: View {
                     }
                 }.frame(
                     minWidth: 30,
-                    minHeight: 50
+                    minHeight: 44
                 )
                 Text("⤒")
                     .font(Font.system(size: 24.0))

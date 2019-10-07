@@ -17,7 +17,7 @@ struct ContentView: View {
         VStack {
             Spacer(minLength: 20)
             HStack {
-                Text("♡ 100")
+                Text("♡ \(state.heartrate)")
                     .font(Font.system(size: 38))
                     .padding(0)
                     .frame(

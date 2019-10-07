@@ -20,6 +20,7 @@ final class AppState: ObservableObject {
     @Published var uiState: UIStateEnum = UIStateEnum.Stopped
     @Published var upperLimit = 0
     @Published var lowerLimit = 0
+    @Published var heartrate = "-"
     
     static let startRange = 60
     static let selectableRange = 120

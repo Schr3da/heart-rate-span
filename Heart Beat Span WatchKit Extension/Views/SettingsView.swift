@@ -21,15 +21,15 @@ struct SettingsView: View {
             VStack {
                 LimitLabel(value: self.$upperLimit)
                 LimitLabel(value: self.$lowerLimit)
-                Spacer(minLength: 20)
-                Button (action: {
+                Spacer(minLength: 14)
+                Button(action: {
                     self.state.saveData(self.upperLimit, self.lowerLimit)
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Save")
                         .foregroundColor(Color.blue)
                 }
-                Button (action: {
+                Button(action: {
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Cancel")
