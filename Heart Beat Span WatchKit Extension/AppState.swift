@@ -28,6 +28,10 @@ final class AppState: ObservableObject {
     private let file = HBSFileManager()
     private let sampler = SampleManager()
     
+    init() {
+        self.loadData()
+    }
+    
     func loadData() {
         let data = file.load()
         self.upperLimit = data.upperLimit

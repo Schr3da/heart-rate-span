@@ -12,9 +12,21 @@ struct TrackingView: View {
     @Binding var lowerLimit: Int
     @Binding var heartrate: Int;
     
+    private func getHeartRate() -> String {
+        return self.heartrate == 0 ? "♡ -" : "♡ \(heartrate)"
+    }
+    
+    private func getUpperLimit() -> String {
+        return upperLimit == 0 ? "- ⤒" : "\(upperLimit) ⤒"
+    }
+    
+    private func getLowerLimit() -> String {
+        return lowerLimit == 0 ? "- ⤓" : "\(lowerLimit) ⤓"
+    }
+    
     var body: some View {
         HStack {
-            Text("♡ \(heartrate)")
+            Text(getHeartRate())
                 .font(Font.system(size: 38))
                 .padding(0)
                 .frame(
@@ -25,7 +37,7 @@ struct TrackingView: View {
                     alignment: Alignment.leading
                 )
             VStack {
-                Text("\(upperLimit) ⤒")
+                Text(self.getUpperLimit())
                     .frame(
                         minWidth: 0,
                         maxWidth: 50,
@@ -33,7 +45,7 @@ struct TrackingView: View {
                         maxHeight: .infinity,
                         alignment: Alignment.trailing
                     )
-                Text("\(lowerLimit) ⤓")
+                Text(self.getLowerLimit())
                     .frame(
                         minWidth: 0,
                         maxWidth: 50,
