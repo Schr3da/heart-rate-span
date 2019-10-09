@@ -16,36 +16,11 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Spacer(minLength: 20)
-            HStack {
-                Text("♡ \(state.heartrate)")
-                    .font(Font.system(size: 38))
-                    .padding(0)
-                    .frame(
-                        minWidth: 0,
-                        maxWidth: .infinity,
-                        minHeight: 50,
-                        maxHeight: .infinity,
-                        alignment: Alignment.leading
-                    )
-                VStack {
-                    Text("\(state.upperLimit) ⤒")
-                        .frame(
-                            minWidth: 0,
-                            maxWidth: 50,
-                            minHeight: 0,
-                            maxHeight: .infinity,
-                            alignment: Alignment.trailing
-                        )
-                    Text("\(state.lowerLimit) ⤓")
-                        .frame(
-                            minWidth: 0,
-                            maxWidth: 50,
-                            minHeight: 0,
-                            maxHeight: .infinity,
-                            alignment: Alignment.trailing
-                        )
-                }.foregroundColor(Color.gray)
-            }
+            TrackingView(
+                upperLimit: $state.upperLimit,
+                lowerLimit: $state.lowerLimit,
+                heartrate: $state.heartrate
+            )
             Divider()
             Button(action: {
                 self.state.uiState == UIStateEnum.Running ?

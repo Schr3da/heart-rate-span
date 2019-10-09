@@ -17,13 +17,13 @@
 		119A18A6234B457300F58726 /* Heart Beat Span WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 119A18A5234B457300F58726 /* Heart Beat Span WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		119A18AD234B457300F58726 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A18AC234B457300F58726 /* ExtensionDelegate.swift */; };
 		119A18AF234B457400F58726 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 119A18AE234B457400F58726 /* Assets.xcassets */; };
-		119A18C5234B474D00F58726 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A18BF234B474D00F58726 /* SettingsView.swift */; };
-		119A18C6234B474D00F58726 /* LimitLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A18C0234B474D00F58726 /* LimitLabel.swift */; };
 		119A18C7234B474D00F58726 /* AppContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A18C1234B474D00F58726 /* AppContentView.swift */; };
-		119A18C9234B474D00F58726 /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A18C3234B474D00F58726 /* TrackingView.swift */; };
 		119A18CA234B474D00F58726 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A18C4234B474D00F58726 /* ContentView.swift */; };
 		119A18CC234B47E700F58726 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A18CB234B47E700F58726 /* HostingController.swift */; };
 		119A18CE234B48A900F58726 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A18CD234B48A900F58726 /* AppState.swift */; };
+		11CA24B7234DF9BE005E013A /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CA24B6234DF9BE005E013A /* TrackingView.swift */; };
+		11CA24B9234DF9CC005E013A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CA24B8234DF9CB005E013A /* SettingsView.swift */; };
+		11CA24BB234DF9D3005E013A /* LimitLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CA24BA234DF9D3005E013A /* LimitLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,13 +84,13 @@
 		119A18AC234B457300F58726 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		119A18AE234B457400F58726 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		119A18B0234B457400F58726 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		119A18BF234B474D00F58726 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = ../Views/SettingsView.swift; sourceTree = "<group>"; };
-		119A18C0234B474D00F58726 /* LimitLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LimitLabel.swift; path = ../Views/LimitLabel.swift; sourceTree = "<group>"; };
 		119A18C1234B474D00F58726 /* AppContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppContentView.swift; path = ../Views/AppContentView.swift; sourceTree = "<group>"; };
-		119A18C3234B474D00F58726 /* TrackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackingView.swift; path = ../Views/TrackingView.swift; sourceTree = "<group>"; };
 		119A18C4234B474D00F58726 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../Views/ContentView.swift; sourceTree = "<group>"; };
 		119A18CB234B47E700F58726 /* HostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		119A18CD234B48A900F58726 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		11CA24B6234DF9BE005E013A /* TrackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackingView.swift; path = "Heart Beat Span WatchKit Extension/Views/TrackingView.swift"; sourceTree = SOURCE_ROOT; };
+		11CA24B8234DF9CB005E013A /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = "Heart Beat Span WatchKit Extension/Views/SettingsView.swift"; sourceTree = SOURCE_ROOT; };
+		11CA24BA234DF9D3005E013A /* LimitLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LimitLabel.swift; path = "Heart Beat Span WatchKit Extension/Views/LimitLabel.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +108,8 @@
 		11900E03234B6E270021DD08 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				119A18C0234B474D00F58726 /* LimitLabel.swift */,
-				119A18BF234B474D00F58726 /* SettingsView.swift */,
+				11CA24B8234DF9CB005E013A /* SettingsView.swift */,
+				11CA24BA234DF9D3005E013A /* LimitLabel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -127,7 +127,7 @@
 		11900E07234B6EC60021DD08 /* Tracking */ = {
 			isa = PBXGroup;
 			children = (
-				119A18C3234B474D00F58726 /* TrackingView.swift */,
+				11CA24B6234DF9BE005E013A /* TrackingView.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -316,15 +316,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				119A18C9234B474D00F58726 /* TrackingView.swift in Sources */,
 				119A18CE234B48A900F58726 /* AppState.swift in Sources */,
 				110BBDD2234BB90600F6C9B7 /* SampleManager.swift in Sources */,
-				119A18C5234B474D00F58726 /* SettingsView.swift in Sources */,
+				11CA24B7234DF9BE005E013A /* TrackingView.swift in Sources */,
+				11CA24BB234DF9D3005E013A /* LimitLabel.swift in Sources */,
 				119A18CA234B474D00F58726 /* ContentView.swift in Sources */,
 				110BBDD4234BCB8E00F6C9B7 /* FileManager.swift in Sources */,
+				11CA24B9234DF9CC005E013A /* SettingsView.swift in Sources */,
 				110BBDD6234BCFE300F6C9B7 /* Json.swift in Sources */,
 				119A18AD234B457300F58726 /* ExtensionDelegate.swift in Sources */,
-				119A18C6234B474D00F58726 /* LimitLabel.swift in Sources */,
 				119A18CC234B47E700F58726 /* HostingController.swift in Sources */,
 				119A18C7234B474D00F58726 /* AppContentView.swift in Sources */,
 			);

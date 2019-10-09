@@ -20,12 +20,12 @@ final class AppState: ObservableObject {
     @Published var uiState: UIStateEnum = UIStateEnum.Stopped
     @Published var upperLimit = 0
     @Published var lowerLimit = 0
-    @Published var heartrate = "-"
+    @Published var heartrate = 0
     
     static let startRange = 60
     static let endRange = 180
     
-    private let file = FileManager()
+    private let file = HBSFileManager()
     private let sampler = SampleManager()
     
     func loadData() {
@@ -37,7 +37,7 @@ final class AppState: ObservableObject {
     func saveData(_ upperLimit: Int, _ lowerLimit: Int) {
         self.upperLimit = upperLimit
         self.lowerLimit = lowerLimit
-        self.file.write(data: FileData(upperLimit, lowerLimit))
+        self.file.write(data: HBSFileData(upperLimit, lowerLimit))
     }
         
     func startTracking() {
@@ -47,6 +47,7 @@ final class AppState: ObservableObject {
     
     func stopTracking() {
         uiState = UIStateEnum.Stopped
+        self.loadData()
         self.sampler.stop()
     }
 }

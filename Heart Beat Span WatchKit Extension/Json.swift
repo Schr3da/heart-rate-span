@@ -8,7 +8,7 @@
 
 import Foundation
 
-func JSONStringify(obj: FileData, prettyPrinted: Bool = false) -> String {
+func JSONStringify(obj: HBSFileData, prettyPrinted: Bool = false) -> String {
     do {
         let data = try JSONEncoder().encode(obj)
         let string = String(data: data, encoding: .utf8)!
@@ -19,11 +19,11 @@ func JSONStringify(obj: FileData, prettyPrinted: Bool = false) -> String {
     }
 }
 
-func JSONParse(jsonString: Data) -> FileData {
+func JSONParse(jsonString: Data) -> HBSFileData {
     do {
-        return try JSONDecoder().decode(FileData.self, from: jsonString)
+        return try JSONDecoder().decode(HBSFileData.self, from: jsonString)
     } catch {
         print(error)
-        return FileData.init(0, 0)
+        return HBSFileData.init(0, 0)
     }
 }
