@@ -7,10 +7,16 @@
 //
 
 import HealthKit
+import AVFoundation
 
 class SampleManager {
     
-    private var store = HKHealthStore()
+    private var store: HKHealthStore = HKHealthStore()
+    private var updateCb: ((Int) -> Void)!
+    
+    func setUpdateCb(cb: ((Int) -> Void)!) {
+        self.updateCb = cb
+    }
     
     func hasPermissions() -> Bool {
         guard let type = HKObjectType.quantityType(forIdentifier: .heartRate) else {

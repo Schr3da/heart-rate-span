@@ -12,8 +12,12 @@ struct HBSFileData: Codable {
     
     let upperLimit: Int
     let lowerLimit: Int
+    let isSoundEnabled: Bool
+    let isVibrationEnabled: Bool
     
-    init(_ upperLimit: Int, _ lowerLimit: Int) {
+    init(enableSound: Bool, enableVibration: Bool, upperLimit: Int, lowerLimit: Int) {
+        self.isSoundEnabled = enableSound
+        self.isVibrationEnabled = enableVibration
         self.upperLimit = upperLimit
         self.lowerLimit = lowerLimit
     }
@@ -31,7 +35,12 @@ class HBSFileManager {
     }
     
     func load() -> HBSFileData {
-        let defautValue = HBSFileData.init(120, 100)
+        let defautValue = HBSFileData.init(
+            enableSound: true,
+            enableVibration: true,
+            upperLimit: 120,
+            lowerLimit: 100
+        )
         
         if let file = getFileUrl() {
             do {

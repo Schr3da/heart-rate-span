@@ -30,7 +30,7 @@ struct ContentView: View {
             TrackerView(
                 upperLimit: $state.upperLimit,
                 lowerLimit: $state.lowerLimit,
-                heartrate: $state.heartrate
+                heartrate: $state.heartRate
             )
             Divider()
             ActionButton(
@@ -41,6 +41,8 @@ struct ContentView: View {
             ActionButton(title: "Settings", color: Color.white, onClick: toggleSettings )
             .sheet(isPresented: $showSettings) {
                 SettingsView(
+                    isSoundEnabled: self.state.isSoundEnabled,
+                    isVibrationEnabled: self.state.isVibrationEnabled,
                     upperLimit: self.state.upperLimit,
                     lowerLimit:  self.state.lowerLimit
                 ).environmentObject(self.state)
@@ -52,7 +54,11 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(upperLimit: 0, lowerLimit: 0)
-            .environmentObject(AppState())
+        SettingsView(
+            isSoundEnabled: false,
+            isVibrationEnabled: false,
+            upperLimit: 0,
+            lowerLimit: 0
+        ).environmentObject(AppState())
     }
 }

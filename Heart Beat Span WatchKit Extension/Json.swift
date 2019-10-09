@@ -23,7 +23,11 @@ func JSONParse(jsonString: Data) -> HBSFileData {
     do {
         return try JSONDecoder().decode(HBSFileData.self, from: jsonString)
     } catch {
-        print(error)
-        return HBSFileData.init(0, 0)
+        return HBSFileData.init(
+            enableSound: false,
+            enableVibration: false,
+            upperLimit: 0,
+            lowerLimit: 0
+        )
     }
 }

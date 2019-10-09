@@ -12,6 +12,8 @@ struct SettingsView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var state: AppState
+    @State var isSoundEnabled: Bool
+    @State var isVibrationEnabled: Bool
     @State var upperLimit: Int
     @State var lowerLimit: Int
     
@@ -20,7 +22,7 @@ struct SettingsView: View {
     }
     
     private func handleSave() {
-        state.saveData(upperLimit, lowerLimit)
+        state.saveSettings(upperLimit, lowerLimit)
         presentationMode.wrappedValue.dismiss()
     }
     
@@ -39,7 +41,12 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(upperLimit: 0, lowerLimit: 0)
-            .environmentObject(AppState())
+        SettingsView(
+            isSoundEnabled: false,
+            isVibrationEnabled: false,
+            upperLimit: 0,
+            lowerLimit: 0
+        
+        ).environmentObject(AppState())
     }
 }

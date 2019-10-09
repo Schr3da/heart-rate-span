@@ -21,28 +21,66 @@ final class AppState: ObservableObject {
     @Published var uiState: UIStateEnum = UIStateEnum.Stopped
     @Published var upperLimit = 0
     @Published var lowerLimit = 0
-    @Published var heartrate = 0
+    @Published var isSoundEnabled = false
+    @Published var isVibrationEnabled = false
+    @Published var heartRate = 0
     
     static let startRange = 60
     static let endRange = 180
     
+    private let player = AudioPlayer()
     private let file = HBSFileManager()
     private let sampler = SampleManager()
     
     init() {
-        loadData()
+        loadSettings()
+        sampler.setUpdateCb(cb: updateHeartRate)
     }
     
-    func loadData() {
+    func loadSettings() {
         let data = file.load()
         upperLimit = data.upperLimit
         lowerLimit = data.lowerLimit
     }
     
-    func saveData(_ upperLimit: Int, _ lowerLimit: Int) {
+    func saveSettings(_ upperLimit: Int, _ lowerLimit: Int) {
         self.upperLimit = upperLimit
         self.lowerLimit = lowerLimit
-        file.write(data: HBSFileData(upperLimit, lowerLimit))
+        
+        let toSave = HBSFileData(
+            enableSound: isSoundEnabled,
+            enableVibration: isSoundEnabled,
+            upperLimit: upperLimit,
+            lowerLimit: lowerLimit
+        )
+        file.write(data: toSave)
+    }
+    
+    func updateHeartRate(rate: Int) {
+        heartRate = rate
+        if isAboveUpperLimit() {
+            return
+        }
+        
+        if isBellowLowerLimit() {
+            return
+        }
+    }
+    
+    func  isAboveUpperLimit() -> Bool {
+        if heartRate <= upperLimit {
+            return false
+        }
+        player.play(sound: HBSSound.UpperLimit.rawValue)
+        return true
+    }
+    
+    func  isBellowLowerLimit() -> Bool {
+        if heartRate >= lowerLimit {
+            return false
+        }
+        player.play(sound: HBSSound.LowerLimit.rawValue)
+        return true
     }
         
     func startTracking() {
@@ -52,7 +90,6 @@ final class AppState: ObservableObject {
     
     func stopTracking() {
         uiState = UIStateEnum.Stopped
-        loadData()
         sampler.stop()
     }
 }

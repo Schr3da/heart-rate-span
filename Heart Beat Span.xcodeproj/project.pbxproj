@@ -10,6 +10,7 @@
 		110BBDD2234BB90600F6C9B7 /* SampleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110BBDD1234BB90600F6C9B7 /* SampleManager.swift */; };
 		110BBDD4234BCB8E00F6C9B7 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110BBDD3234BCB8E00F6C9B7 /* FileManager.swift */; };
 		110BBDD6234BCFE300F6C9B7 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110BBDD5234BCFE300F6C9B7 /* Json.swift */; };
+		115A7FF7234E766A00754185 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115A7FF6234E766A00754185 /* AudioPlayer.swift */; };
 		11900E48234B995D0021DD08 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11900E47234B995D0021DD08 /* HealthKit.framework */; };
 		119A1897234B457200F58726 /* HBS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 119A1896234B457200F58726 /* HBS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		119A189D234B457200F58726 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 119A189B234B457200F58726 /* Interface.storyboard */; };
@@ -76,6 +77,7 @@
 		110BBDD1234BB90600F6C9B7 /* SampleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleManager.swift; sourceTree = "<group>"; };
 		110BBDD3234BCB8E00F6C9B7 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		110BBDD5234BCFE300F6C9B7 /* Json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
+		115A7FF6234E766A00754185 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		11900E44234B991E0021DD08 /* HBS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HBS.entitlements; sourceTree = "<group>"; };
 		11900E45234B995D0021DD08 /* Heart Beat Span WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Heart Beat Span WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		11900E47234B995D0021DD08 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -196,6 +198,7 @@
 				11900E06234B6EA20021DD08 /* Entry */,
 				11900E03234B6E270021DD08 /* Settings */,
 				11900E07234B6EC60021DD08 /* Tracker */,
+				115A7FF6234E766A00754185 /* AudioPlayer.swift */,
 			);
 			path = "Heart Beat Span WatchKit Extension";
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				119A18CA234B474D00F58726 /* ContentView.swift in Sources */,
 				110BBDD4234BCB8E00F6C9B7 /* FileManager.swift in Sources */,
 				11CA24B9234DF9CC005E013A /* SettingsView.swift in Sources */,
+				115A7FF7234E766A00754185 /* AudioPlayer.swift in Sources */,
 				110BBDD6234BCFE300F6C9B7 /* Json.swift in Sources */,
 				119A18AD234B457300F58726 /* ExtensionDelegate.swift in Sources */,
 				119A18CC234B47E700F58726 /* HostingController.swift in Sources */,
