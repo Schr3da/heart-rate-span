@@ -19,8 +19,8 @@ struct SettingsView: View {
     var body: some View {
         ScrollView {
             VStack {
-                LimitLabel(value: self.$upperLimit)
-                LimitLabel(value: self.$lowerLimit)
+                LimitLabel(value: self.$upperLimit, type: LimitType.Up)
+                LimitLabel(value: self.$lowerLimit, type: LimitType.Down)
                 Spacer(minLength: 14)
                 Button(action: {
                     self.state.saveData(self.upperLimit, self.lowerLimit)

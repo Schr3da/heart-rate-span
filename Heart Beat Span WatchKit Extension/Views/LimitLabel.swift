@@ -15,10 +15,25 @@ enum LimitType: String {
 
 struct LimitLabel: View {
     @Binding var value: Int;
+    
+    private let type: LimitType;
 
+    init(value: Binding<Int>, type: LimitType) {
+        self.type = type;
+        self._value = value;
+    }
+    
+    private func getTitle() -> String {
+        self.type == LimitType.Down ? "Lower Limit" : "Upper Limit";
+    }
+    
+    private func getPrefix() -> String {
+        self.type == LimitType.Down ? "⤓" : "⤒";
+    }
+    
     var body: some View {
         VStack {
-            Text("Upper Limit")
+            Text(self.getTitle())
                 .font(Font.system(size: 14.0))
             HStack {
                 Text("♡")
@@ -33,7 +48,7 @@ struct LimitLabel: View {
                     minWidth: 30,
                     minHeight: 44
                 )
-                Text("⤒")
+                Text(self.getPrefix())
                     .font(Font.system(size: 24.0))
                     .foregroundColor(Color.gray)
             }
