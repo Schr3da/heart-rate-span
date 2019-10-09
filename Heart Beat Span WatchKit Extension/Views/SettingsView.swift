@@ -16,22 +16,22 @@ struct SettingsView: View {
     @State var lowerLimit: Int
     
     private func handleCancel() {
-        self.presentationMode.wrappedValue.dismiss()
+        presentationMode.wrappedValue.dismiss()
     }
     
     private func handleSave() {
-        self.state.saveData(self.upperLimit, self.lowerLimit)
-        self.presentationMode.wrappedValue.dismiss()
+        state.saveData(upperLimit, lowerLimit)
+        presentationMode.wrappedValue.dismiss()
     }
     
     var body: some View {
         ScrollView {
             VStack {
-                LimitLabel(value: self.$upperLimit, type: LimitType.Up)
-                LimitLabel(value: self.$lowerLimit, type: LimitType.Down)
+                LimitLabel(value: $upperLimit, type: LimitType.Up)
+                LimitLabel(value: $lowerLimit, type: LimitType.Down)
                 Spacer(minLength: 14)
-                ActionButton(title: "Save", color: Color.blue, onClick: self.handleSave)
-                ActionButton(title: "Cancel", color: Color.red, onClick: self.handleCancel)
+                ActionButton(title: "Save", color: Color.blue, onClick: handleSave)
+                ActionButton(title: "Cancel", color: Color.red, onClick: handleCancel)
             }
         }.navigationBarTitle("")
     }

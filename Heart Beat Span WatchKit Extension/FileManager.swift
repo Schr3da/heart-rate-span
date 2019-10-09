@@ -33,7 +33,7 @@ class HBSFileManager {
     func load() -> HBSFileData {
         let defautValue = HBSFileData.init(120, 100)
         
-        if let file = self.getFileUrl() {
+        if let file = getFileUrl() {
             do {
                 let content = try String(contentsOf: file, encoding: .utf8)
                 return JSONParse(jsonString: content.data(using: .utf8)!)
@@ -48,7 +48,7 @@ class HBSFileManager {
     
     func write(data: HBSFileData) {
         let content = JSONStringify(obj: data, prettyPrinted: true)
-        if let file = self.getFileUrl() {
+        if let file = getFileUrl() {
             do {
                 try content.write(to: file, atomically: false, encoding: .utf8)
             }

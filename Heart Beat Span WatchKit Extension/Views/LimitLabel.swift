@@ -40,7 +40,6 @@ struct LimitLabel: View {
         VStack {
             Text(getTitle())
                 .font(Font.system(size: 14.0))
-            
             HStack {
                 Icon(ascii: Ascii.Heart.rawValue)
                 HBSPicker($value, getLimitRange())

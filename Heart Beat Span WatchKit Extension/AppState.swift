@@ -17,7 +17,7 @@ enum UIStateEnum: String {
 }
 
 final class AppState: ObservableObject {
-    
+
     @Published var uiState: UIStateEnum = UIStateEnum.Stopped
     @Published var upperLimit = 0
     @Published var lowerLimit = 0
@@ -30,29 +30,29 @@ final class AppState: ObservableObject {
     private let sampler = SampleManager()
     
     init() {
-        self.loadData()
+        loadData()
     }
     
     func loadData() {
         let data = file.load()
-        self.upperLimit = data.upperLimit
-        self.lowerLimit = data.lowerLimit
+        upperLimit = data.upperLimit
+        lowerLimit = data.lowerLimit
     }
     
     func saveData(_ upperLimit: Int, _ lowerLimit: Int) {
         self.upperLimit = upperLimit
         self.lowerLimit = lowerLimit
-        self.file.write(data: HBSFileData(upperLimit, lowerLimit))
+        file.write(data: HBSFileData(upperLimit, lowerLimit))
     }
         
     func startTracking() {
         uiState = UIStateEnum.Running
-        self.sampler.run()
+        sampler.run()
     }
     
     func stopTracking() {
         uiState = UIStateEnum.Stopped
-        self.loadData()
-        self.sampler.stop()
+        loadData()
+        sampler.stop()
     }
 }

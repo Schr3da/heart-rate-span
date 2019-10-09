@@ -16,13 +16,13 @@ class SampleManager {
         guard let type = HKObjectType.quantityType(forIdentifier: .heartRate) else {
             return false
         }
-        let status = self.store.authorizationStatus(for: type)
+        let status = store.authorizationStatus(for: type)
         return status == HKAuthorizationStatus.sharingAuthorized
     }
     
     func requestPermissions() {
         let allTypes = Set([HKObjectType.quantityType(forIdentifier: .heartRate)!])
-        self.store.requestAuthorization(toShare: allTypes, read: allTypes, completion: { (success, error) in
+        store.requestAuthorization(toShare: allTypes, read: allTypes, completion: { (success, error) in
             if !success {
                 return
             }
@@ -71,7 +71,7 @@ class SampleManager {
             completion(result)
         }
 
-        self.store.execute(query)
+        store.execute(query)
     }
     
     func prepareQuery() {
@@ -94,15 +94,15 @@ class SampleManager {
                 }
             })
         }
-        self.store.execute(query)
+        store.execute(query)
     }
     
     func run() {
-        if self.hasPermissions() == false {
-            self.requestPermissions()
+        if hasPermissions() == false {
+            requestPermissions()
             return
         }
-        self.prepareQuery()
+        prepareQuery()
     }
     
     func stop() {

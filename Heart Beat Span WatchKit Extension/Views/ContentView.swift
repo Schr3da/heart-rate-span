@@ -14,13 +14,13 @@ struct ContentView: View {
     @State var showSettings: Bool = false
     
     private func toggleSettings() {
-        self.showSettings = true
+        showSettings = true
     }
     
     private func toggleTrack() {
-        self.state.uiState == UIStateEnum.Running ?
-        self.state.stopTracking() :
-        self.state.startTracking()
+        state.uiState == UIStateEnum.Running ?
+        state.stopTracking() :
+        state.startTracking()
     }
     
     @ViewBuilder
