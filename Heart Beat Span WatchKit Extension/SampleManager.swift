@@ -90,7 +90,7 @@ class SampleManager {
                     .quantity
                     .doubleValue(for: heartRateUnit)
 
-                    print(heartRate);
+                    print(heartRate)
                 }
             })
         }

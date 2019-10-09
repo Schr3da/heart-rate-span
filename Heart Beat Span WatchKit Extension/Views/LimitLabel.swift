@@ -14,43 +14,38 @@ enum LimitType: String {
 }
 
 struct LimitLabel: View {
-    @Binding var value: Int;
     
-    private let type: LimitType;
+    @Binding var value: Int
+    
+    private let type: LimitType
 
     init(value: Binding<Int>, type: LimitType) {
-        self.type = type;
-        self._value = value;
+        self.type = type
+        self._value = value
     }
     
     private func getTitle() -> String {
-        self.type == LimitType.Down ? "Lower Limit" : "Upper Limit";
+        type == LimitType.Down ? "Lower Limit" : "Upper Limit"
     }
     
     private func getPrefix() -> String {
-        self.type == LimitType.Down ? "⤓" : "⤒";
+        type == LimitType.Down ? Ascii.Lower.rawValue : Ascii.Upper.rawValue
+    }
+    
+    private func getLimitRange() -> ClosedRange<Int> {
+        AppState.startRange ... AppState.endRange
     }
     
     var body: some View {
         VStack {
-            Text(self.getTitle())
+            Text(getTitle())
                 .font(Font.system(size: 14.0))
+            
             HStack {
-                Text("♡")
-                    .font(Font.system(size: 24.0))
-                    .foregroundColor(Color.gray)
-                Picker(selection: $value, label: Text("")) {
-                    ForEach((AppState.startRange ... AppState.endRange), id: \.self) { t in
-                        Text(String(t))
-                            .font(Font.system(size: 32.0))
-                    }
-                }.frame(
-                    minWidth: 30,
-                    minHeight: 44
-                )
-                Text(self.getPrefix())
-                    .font(Font.system(size: 24.0))
-                    .foregroundColor(Color.gray)
+                Icon(ascii: Ascii.Heart.rawValue)
+                HBSPicker($value, getLimitRange())
+                Icon(ascii: getPrefix())
+
             }
         }
     }

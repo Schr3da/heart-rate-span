@@ -7,21 +7,28 @@
 //
 import SwiftUI
 
-struct TrackingView: View {
-    @Binding var upperLimit: Int;
+struct TrackerView: View {
+    
+    @Binding var upperLimit: Int
     @Binding var lowerLimit: Int
-    @Binding var heartrate: Int;
+    @Binding var heartrate: Int
     
     private func getHeartRate() -> String {
-        return self.heartrate == 0 ? "♡ -" : "♡ \(heartrate)"
+        heartrate == 0 ?
+            "\(Ascii.Heart.rawValue) -" :
+            "\(Ascii.Upper.rawValue) \(heartrate)"
     }
     
     private func getUpperLimit() -> String {
-        return upperLimit == 0 ? "- ⤒" : "\(upperLimit) ⤒"
+        upperLimit == 0 ?
+            "- \(Ascii.Upper.rawValue)" :
+            "\(upperLimit) \(Ascii.Upper.rawValue)"
     }
     
     private func getLowerLimit() -> String {
-        return lowerLimit == 0 ? "- ⤓" : "\(lowerLimit) ⤓"
+        lowerLimit == 0 ?
+            "- \(Ascii.Lower.rawValue)" :
+            "\(lowerLimit) \(Ascii.Lower.rawValue)"
     }
     
     var body: some View {
@@ -37,7 +44,7 @@ struct TrackingView: View {
                     alignment: Alignment.leading
                 )
             VStack {
-                Text(self.getUpperLimit())
+                Text(getUpperLimit())
                     .frame(
                         minWidth: 0,
                         maxWidth: 50,
@@ -45,7 +52,7 @@ struct TrackingView: View {
                         maxHeight: .infinity,
                         alignment: Alignment.trailing
                     )
-                Text(self.getLowerLimit())
+                Text(getLowerLimit())
                     .frame(
                         minWidth: 0,
                         maxWidth: 50,

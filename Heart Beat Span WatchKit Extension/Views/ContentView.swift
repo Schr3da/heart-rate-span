@@ -9,39 +9,43 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @EnvironmentObject var state: AppState
     @State var showSettings: Bool = false
+    
+    private func toggleSettings() {
+        self.showSettings = true
+    }
+    
+    private func toggleTrack() {
+        self.state.uiState == UIStateEnum.Running ?
+        self.state.stopTracking() :
+        self.state.startTracking()
+    }
     
     @ViewBuilder
     var body: some View {
         VStack {
             Spacer(minLength: 20)
-            TrackingView(
+            TrackerView(
                 upperLimit: $state.upperLimit,
                 lowerLimit: $state.lowerLimit,
                 heartrate: $state.heartrate
             )
             Divider()
-            Button(action: {
-                self.state.uiState == UIStateEnum.Running ?
-                    self.state.stopTracking() : self.state.startTracking()
-            }) {
-                Text(state.uiState == UIStateEnum.Running ? "Stop" : "Track")
-                    .foregroundColor(
-                        state.uiState == UIStateEnum.Running ?
-                        Color.red : Color.yellow
-                    )
-            }
-            Button(action: { self.showSettings = true }) {
-                Text("Edit")
-            }.sheet(isPresented: $showSettings) {
+            ActionButton(
+                title: state.uiState == UIStateEnum.Running ? "Stop" : "Track",
+                color: state.uiState == UIStateEnum.Running ? Color.red : Color.yellow,
+                onClick: toggleTrack
+            )
+            ActionButton(title: "Settings", color: Color.white, onClick: toggleSettings )
+            .sheet(isPresented: $showSettings) {
                 SettingsView(
                     upperLimit: self.state.upperLimit,
                     lowerLimit:  self.state.lowerLimit
                 ).environmentObject(self.state)
-                .navigationBarTitle("")
             }.opacity(state.uiState == UIStateEnum.Running ? 0.75 : 1)
-                .disabled(state.uiState == UIStateEnum.Running)
+            .disabled(state.uiState == UIStateEnum.Running)
         }
     }
 }

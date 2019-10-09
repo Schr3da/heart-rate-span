@@ -21,9 +21,13 @@
 		119A18CA234B474D00F58726 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A18C4234B474D00F58726 /* ContentView.swift */; };
 		119A18CC234B47E700F58726 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A18CB234B47E700F58726 /* HostingController.swift */; };
 		119A18CE234B48A900F58726 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A18CD234B48A900F58726 /* AppState.swift */; };
-		11CA24B7234DF9BE005E013A /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CA24B6234DF9BE005E013A /* TrackingView.swift */; };
+		11CA24B7234DF9BE005E013A /* TrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CA24B6234DF9BE005E013A /* TrackerView.swift */; };
 		11CA24B9234DF9CC005E013A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CA24B8234DF9CB005E013A /* SettingsView.swift */; };
 		11CA24BB234DF9D3005E013A /* LimitLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CA24BA234DF9D3005E013A /* LimitLabel.swift */; };
+		11EEDBE5234E4D0000DE7480 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EEDBE4234E4D0000DE7480 /* Picker.swift */; };
+		11EEDBE8234E4F8C00DE7480 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EEDBE7234E4F8C00DE7480 /* ActionButton.swift */; };
+		11EEDBEA234E520000DE7480 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EEDBE9234E520000DE7480 /* Icon.swift */; };
+		11EEDBEC234E53FB00DE7480 /* Ascii.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EEDBEB234E53FB00DE7480 /* Ascii.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,9 +92,13 @@
 		119A18C4234B474D00F58726 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../Views/ContentView.swift; sourceTree = "<group>"; };
 		119A18CB234B47E700F58726 /* HostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		119A18CD234B48A900F58726 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		11CA24B6234DF9BE005E013A /* TrackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackingView.swift; path = "Heart Beat Span WatchKit Extension/Views/TrackingView.swift"; sourceTree = SOURCE_ROOT; };
+		11CA24B6234DF9BE005E013A /* TrackerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackerView.swift; path = "Heart Beat Span WatchKit Extension/Views/TrackerView.swift"; sourceTree = SOURCE_ROOT; };
 		11CA24B8234DF9CB005E013A /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = "Heart Beat Span WatchKit Extension/Views/SettingsView.swift"; sourceTree = SOURCE_ROOT; };
 		11CA24BA234DF9D3005E013A /* LimitLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LimitLabel.swift; path = "Heart Beat Span WatchKit Extension/Views/LimitLabel.swift"; sourceTree = SOURCE_ROOT; };
+		11EEDBE4234E4D0000DE7480 /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Picker.swift; path = "Heart Beat Span WatchKit Extension/Picker.swift"; sourceTree = SOURCE_ROOT; };
+		11EEDBE7234E4F8C00DE7480 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		11EEDBE9234E520000DE7480 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Icon.swift; path = "Heart Beat Span WatchKit Extension/Common/Icon.swift"; sourceTree = SOURCE_ROOT; };
+		11EEDBEB234E53FB00DE7480 /* Ascii.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ascii.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +118,8 @@
 			children = (
 				11CA24B8234DF9CB005E013A /* SettingsView.swift */,
 				11CA24BA234DF9D3005E013A /* LimitLabel.swift */,
+				11EEDBE4234E4D0000DE7480 /* Picker.swift */,
+				11EEDBE9234E520000DE7480 /* Icon.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -124,12 +134,12 @@
 			path = Entry;
 			sourceTree = "<group>";
 		};
-		11900E07234B6EC60021DD08 /* Tracking */ = {
+		11900E07234B6EC60021DD08 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				11CA24B6234DF9BE005E013A /* TrackingView.swift */,
+				11CA24B6234DF9BE005E013A /* TrackerView.swift */,
 			);
-			path = Tracking;
+			path = Tracker;
 			sourceTree = "<group>";
 		};
 		11900E46234B995D0021DD08 /* Frameworks */ = {
@@ -182,11 +192,21 @@
 				110BBDD5234BCFE300F6C9B7 /* Json.swift */,
 				110BBDD1234BB90600F6C9B7 /* SampleManager.swift */,
 				119A18AE234B457400F58726 /* Assets.xcassets */,
+				11EEDBE6234E4F6600DE7480 /* Common */,
 				11900E06234B6EA20021DD08 /* Entry */,
 				11900E03234B6E270021DD08 /* Settings */,
-				11900E07234B6EC60021DD08 /* Tracking */,
+				11900E07234B6EC60021DD08 /* Tracker */,
 			);
 			path = "Heart Beat Span WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		11EEDBE6234E4F6600DE7480 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				11EEDBE7234E4F8C00DE7480 /* ActionButton.swift */,
+				11EEDBEB234E53FB00DE7480 /* Ascii.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,8 +337,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				119A18CE234B48A900F58726 /* AppState.swift in Sources */,
+				11EEDBE5234E4D0000DE7480 /* Picker.swift in Sources */,
+				11EEDBEA234E520000DE7480 /* Icon.swift in Sources */,
+				11EEDBE8234E4F8C00DE7480 /* ActionButton.swift in Sources */,
+				11EEDBEC234E53FB00DE7480 /* Ascii.swift in Sources */,
 				110BBDD2234BB90600F6C9B7 /* SampleManager.swift in Sources */,
-				11CA24B7234DF9BE005E013A /* TrackingView.swift in Sources */,
+				11CA24B7234DF9BE005E013A /* TrackerView.swift in Sources */,
 				11CA24BB234DF9D3005E013A /* LimitLabel.swift in Sources */,
 				119A18CA234B474D00F58726 /* ContentView.swift in Sources */,
 				110BBDD4234BCB8E00F6C9B7 /* FileManager.swift in Sources */,

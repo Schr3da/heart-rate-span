@@ -9,6 +9,7 @@
 import Foundation
 
 struct HBSFileData: Codable {
+    
     let upperLimit: Int
     let lowerLimit: Int
     

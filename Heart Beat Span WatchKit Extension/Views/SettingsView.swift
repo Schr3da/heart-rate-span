@@ -12,9 +12,17 @@ struct SettingsView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var state: AppState
+    @State var upperLimit: Int
+    @State var lowerLimit: Int
     
-    @State var upperLimit: Int;
-    @State var lowerLimit: Int;
+    private func handleCancel() {
+        self.presentationMode.wrappedValue.dismiss()
+    }
+    
+    private func handleSave() {
+        self.state.saveData(self.upperLimit, self.lowerLimit)
+        self.presentationMode.wrappedValue.dismiss()
+    }
     
     var body: some View {
         ScrollView {
@@ -22,21 +30,10 @@ struct SettingsView: View {
                 LimitLabel(value: self.$upperLimit, type: LimitType.Up)
                 LimitLabel(value: self.$lowerLimit, type: LimitType.Down)
                 Spacer(minLength: 14)
-                Button(action: {
-                    self.state.saveData(self.upperLimit, self.lowerLimit)
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("Save")
-                        .foregroundColor(Color.blue)
-                }
-                Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("Cancel")
-                        .foregroundColor(Color.red)
-                }
+                ActionButton(title: "Save", color: Color.blue, onClick: self.handleSave)
+                ActionButton(title: "Cancel", color: Color.red, onClick: self.handleCancel)
             }
-        }
+        }.navigationBarTitle("")
     }
 }
 
