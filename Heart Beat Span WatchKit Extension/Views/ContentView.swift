@@ -46,7 +46,7 @@ struct ContentView: View {
                     upperLimit: self.state.upperLimit,
                     lowerLimit:  self.state.lowerLimit
                 ).environmentObject(self.state)
-            }.opacity(state.uiState == UIStateEnum.Running ? 0.75 : 1)
+            }.opacity(state.uiState == UIStateEnum.Running ? 0.6 : 1)
             .disabled(state.uiState == UIStateEnum.Running)
         }
     }

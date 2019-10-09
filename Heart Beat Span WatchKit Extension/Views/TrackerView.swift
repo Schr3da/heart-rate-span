@@ -16,7 +16,7 @@ struct TrackerView: View {
     private func getHeartRate() -> String {
         heartrate == 0 ?
             "\(Ascii.Heart.rawValue) -" :
-            "\(Ascii.Upper.rawValue) \(heartrate)"
+            "\(Ascii.Heart.rawValue) \(heartrate)"
     }
     
     private func getUpperLimit() -> String {

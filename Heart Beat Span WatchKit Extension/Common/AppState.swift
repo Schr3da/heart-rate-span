@@ -23,7 +23,7 @@ final class AppState: ObservableObject {
     @Published var lowerLimit = 0
     @Published var isSoundEnabled = false
     @Published var isVibrationEnabled = false
-    @Published var heartRate = 0
+    @Published var heartRate = 120
     
     static let startRange = 60
     static let endRange = 180
