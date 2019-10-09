@@ -41,6 +41,8 @@ final class AppState: ObservableObject {
         let data = file.load()
         upperLimit = data.upperLimit
         lowerLimit = data.lowerLimit
+        isSoundEnabled = data.isSoundEnabled
+        isVibrationEnabled = data.isVibrationEnabled
     }
     
     func saveSettings(_ upperLimit: Int, _ lowerLimit: Int) {

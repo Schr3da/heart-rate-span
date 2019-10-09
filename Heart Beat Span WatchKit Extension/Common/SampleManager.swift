@@ -36,46 +36,45 @@ class SampleManager {
     }
     
     func fetchLatestHeartRateSample(completion: @escaping (_ sample: HKQuantitySample?) -> Void) {
-      guard let sampleType = HKObjectType
-        .quantityType(forIdentifier: .heartRate) else {
-          completion(nil)
-        return
-      }
+        guard let sampleType = HKObjectType.quantityType(forIdentifier: .heartRate) else {
+            completion(nil)
+            return
+        }
 
-      let predicate = HKQuery
-        .predicateForSamples(
-          withStart: Date.distantPast,
-          end: Date(),
-          options: .strictEndDate)
-
-      let sortDescriptor = NSSortDescriptor(
-        key: HKSampleSortIdentifierStartDate,
-        ascending: false
+        let predicate = HKQuery.predicateForSamples(
+            withStart: Date.distantPast,
+            end: Date(),
+            options: .strictEndDate
         )
 
-      let query = HKSampleQuery(
-        sampleType: sampleType,
-        predicate: predicate,
-        limit: Int(HKObjectQueryNoLimit),
-        sortDescriptors: [sortDescriptor]) { (_, results, error) in
+        let sortDescriptor = NSSortDescriptor(
+            key: HKSampleSortIdentifierStartDate,
+            ascending: false
+        )
 
-            guard error == nil else {
-                print("Error: \(error!.localizedDescription)")
-                return
+        let query = HKSampleQuery(
+            sampleType: sampleType,
+            predicate: predicate,
+            limit: Int(HKObjectQueryNoLimit),
+            sortDescriptors: [sortDescriptor]) { (_, results, error) in
+
+                guard error == nil else {
+                    print("Error: \(error!.localizedDescription)")
+                    return
+                }
+                
+                if results == nil || results!.isEmpty {
+                    completion(nil)
+                    return
+                }
+              
+                guard let result = results?[0] as? HKQuantitySample else {
+                    print("Error: \(error!.localizedDescription)")
+                    return
+                }
+                
+                completion(result)
             }
-            
-            if results == nil || results!.isEmpty {
-                completion(nil)
-                return
-            }
-          
-            guard let result = results?[0] as? HKQuantitySample else {
-                print("Error: \(error!.localizedDescription)")
-                return
-            }
-            
-            completion(result)
-        }
 
         store.execute(query)
     }

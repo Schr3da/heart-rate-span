@@ -118,10 +118,10 @@
 		11900E03234B6E270021DD08 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				11CA24B8234DF9CB005E013A /* SettingsView.swift */,
+				11EEDBE9234E520000DE7480 /* Icon.swift */,
 				11CA24BA234DF9D3005E013A /* LimitLabel.swift */,
 				11EEDBE4234E4D0000DE7480 /* Picker.swift */,
-				11EEDBE9234E520000DE7480 /* Icon.swift */,
+				11CA24B8234DF9CB005E013A /* SettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -129,9 +129,9 @@
 		11900E06234B6EA20021DD08 /* Entry */ = {
 			isa = PBXGroup;
 			children = (
-				119A18CB234B47E700F58726 /* HostingController.swift */,
 				119A18C1234B474D00F58726 /* AppContentView.swift */,
 				119A18C4234B474D00F58726 /* ContentView.swift */,
+				119A18CB234B47E700F58726 /* HostingController.swift */,
 			);
 			path = Entry;
 			sourceTree = "<group>";
@@ -201,13 +201,13 @@
 		11EEDBE6234E4F6600DE7480 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				115A7FF6234E766A00754185 /* AudioPlayer.swift */,
-				119A18CD234B48A900F58726 /* AppState.swift */,
-				110BBDD3234BCB8E00F6C9B7 /* FileManager.swift */,
-				110BBDD1234BB90600F6C9B7 /* SampleManager.swift */,
 				11EEDBE7234E4F8C00DE7480 /* ActionButton.swift */,
+				119A18CD234B48A900F58726 /* AppState.swift */,
 				11EEDBEB234E53FB00DE7480 /* Ascii.swift */,
+				115A7FF6234E766A00754185 /* AudioPlayer.swift */,
+				110BBDD3234BCB8E00F6C9B7 /* FileManager.swift */,
 				110BBDD5234BCFE300F6C9B7 /* Json.swift */,
+				110BBDD1234BB90600F6C9B7 /* SampleManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";

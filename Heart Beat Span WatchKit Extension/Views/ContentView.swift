@@ -14,7 +14,7 @@ struct ContentView: View {
     @State var showSettings: Bool = false
     
     private func toggleSettings() {
-        showSettings = true
+        showSettings = !showSettings
     }
     
     private func toggleTrack() {
