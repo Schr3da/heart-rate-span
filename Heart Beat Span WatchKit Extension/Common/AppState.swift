@@ -46,12 +46,12 @@ final class AppState: ObservableObject {
         heartRate = rate
 
         if isAboveUpperLimit() {
-            player.play(sound: HBSSound.UpperLimit.rawValue)
+            //player.play(sound: HBSSound.UpperLimit.rawValue)
             return
         }
         
         if isBellowLowerLimit() {
-            player.play(sound: HBSSound.LowerLimit.rawValue)
+            //player.play(sound: HBSSound.LowerLimit.rawValue)
             return
         }
     }
@@ -86,7 +86,7 @@ final class AppState: ObservableObject {
     }
         
     func startTracking() {
-        heartRate = 120;
+        heartRate = 0;
         uiState = UIStateEnum.Running
         sampler.run()
     }

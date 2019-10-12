@@ -7,12 +7,12 @@
 //
 
 import HealthKit
-import AVFoundation
 
 class SampleManager {
     
     private var store: HKHealthStore = HKHealthStore()
-    private var updateCb: ((Int) -> Void)!
+    private var updateCb: ((Int) -> Void)! = nil
+    private var observerQuery: HKObserverQuery! = nil
     private var task: DispatchWorkItem! = nil;
     
     private func hasPermissions() -> Bool {
@@ -76,8 +76,7 @@ class SampleManager {
     
     private func prepareQuery() {
         let sampleType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
-        
-        let query = HKObserverQuery.init(sampleType: sampleType, predicate: nil) { [weak self] _, _, error in
+        observerQuery = HKObserverQuery.init(sampleType: sampleType, predicate: nil) { [weak self] _, _, error in
             self?.fetchLatestHeartRateSample(completion: { (sample) in
                 guard let sample = sample else {
                     print("not a valid sample")
@@ -94,7 +93,8 @@ class SampleManager {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: self!.task)
             })
         }
-        store.execute(query)
+
+        store.execute(observerQuery)
     }
     
     func run() {
@@ -112,9 +112,12 @@ class SampleManager {
     }
     
     func stop() {
-        if task == nil || task.isCancelled {
-            return
+        if task != nil || task.isCancelled == false {
+            task.cancel()
         }
-        task.cancel()
+       
+        if (observerQuery != nil) {
+            store.stop(observerQuery)
+        }
     }
 }
