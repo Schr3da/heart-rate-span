@@ -43,7 +43,7 @@ struct TrackerView: View {
                 .foregroundColor(Color.gray)            
             Text(getHeartRate())
                 .font(Font.system(size: 38))
-                .foregroundColor(Color.gray)
+                .foregroundColor(Color.white)
                 .padding(0)
                 .frame(
                     minWidth: 0,

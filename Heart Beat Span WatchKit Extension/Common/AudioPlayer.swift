@@ -19,13 +19,13 @@ class AudioPlayer {
     private var muted: Bool = false
     private var player: AVAudioPlayer = AVAudioPlayer()
     
-    func getFile(filename: String) -> URL {
+    private func getFile(filename: String) -> URL {
         let path = Bundle.main.path(forResource: filename, ofType:nil)!
         let url = URL(fileURLWithPath: path)
         return url
     }
     
-    func setMuted(_ muted: Bool) {
+    private func setMuted(_ muted: Bool) {
         self.muted = muted
     }
     

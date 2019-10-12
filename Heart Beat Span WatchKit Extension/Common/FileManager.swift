@@ -27,7 +27,7 @@ class HBSFileManager {
     
     private let filename = "HBSSettings"
     
-    func getFileUrl() -> URL? {
+    private func getFileUrl() -> URL? {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             return dir.appendingPathComponent(filename)
         }

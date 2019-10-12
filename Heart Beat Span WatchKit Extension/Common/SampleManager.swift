@@ -13,12 +13,9 @@ class SampleManager {
     
     private var store: HKHealthStore = HKHealthStore()
     private var updateCb: ((Int) -> Void)!
+    private var task: DispatchWorkItem! = nil;
     
-    func setUpdateCb(cb: ((Int) -> Void)!) {
-        self.updateCb = cb
-    }
-    
-    func hasPermissions() -> Bool {
+    private func hasPermissions() -> Bool {
         guard let type = HKObjectType.quantityType(forIdentifier: .heartRate) else {
             return false
         }
@@ -26,7 +23,7 @@ class SampleManager {
         return status == HKAuthorizationStatus.sharingAuthorized
     }
     
-    func requestPermissions() {
+    private func requestPermissions() {
         let allTypes = Set([HKObjectType.quantityType(forIdentifier: .heartRate)!])
         store.requestAuthorization(toShare: allTypes, read: allTypes, completion: { (success, error) in
             if !success {
@@ -35,7 +32,7 @@ class SampleManager {
         })
     }
     
-    func fetchLatestHeartRateSample(completion: @escaping (_ sample: HKQuantitySample?) -> Void) {
+    private func fetchLatestHeartRateSample(completion: @escaping (_ sample: HKQuantitySample?) -> Void) {
         guard let sampleType = HKObjectType.quantityType(forIdentifier: .heartRate) else {
             completion(nil)
             return
@@ -57,7 +54,6 @@ class SampleManager {
             predicate: predicate,
             limit: Int(HKObjectQueryNoLimit),
             sortDescriptors: [sortDescriptor]) { (_, results, error) in
-
                 guard error == nil else {
                     print("Error: \(error!.localizedDescription)")
                     return
@@ -72,14 +68,13 @@ class SampleManager {
                     print("Error: \(error!.localizedDescription)")
                     return
                 }
-                
                 completion(result)
             }
 
         store.execute(query)
     }
     
-    func prepareQuery() {
+    private func prepareQuery() {
         let sampleType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
         
         let query = HKObserverQuery.init(sampleType: sampleType, predicate: nil) { [weak self] _, _, error in
@@ -89,20 +84,21 @@ class SampleManager {
                     return
                 }
 
-                DispatchQueue.main.async {
-                  let heartRateUnit = HKUnit(from: "count/min")
-                  let heartRate = sample
-                    .quantity
-                    .doubleValue(for: heartRateUnit)
-
-                    print(heartRate)
+                let task = DispatchWorkItem {
+                    let heartRateUnit = HKUnit(from: "count/min")
+                    let heartRate = sample.quantity.doubleValue(for: heartRateUnit)
+                    self?.updateCb(Int(heartRate))
                 }
+                
+                self!.task = task;
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: self!.task)
             })
         }
         store.execute(query)
     }
     
     func run() {
+        stop()
         if hasPermissions() == false {
             requestPermissions()
             return
@@ -110,7 +106,15 @@ class SampleManager {
         prepareQuery()
     }
     
+    func setUpdateCb(cb: ((Int) -> Void)!) {
+        self.updateCb = cb
+        self.task = nil
+    }
+    
     func stop() {
-        print("Stop sampler")
+        if task == nil || task.isCancelled {
+            return
+        }
+        task.cancel()
     }
 }

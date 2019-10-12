@@ -26,9 +26,9 @@ final class AppState: ObservableObject {
     @Published var uiState: UIStateEnum = UIStateEnum.Stopped
     @Published var upperLimit = 0
     @Published var lowerLimit = 0
+    @Published var heartRate = 0
     @Published var isSoundEnabled = false
     @Published var isVibrationEnabled = false
-    @Published var heartRate = 120
     
     static let startRange = 60
     static let endRange = 180
@@ -42,7 +42,29 @@ final class AppState: ObservableObject {
         sampler.setUpdateCb(cb: updateHeartRate)
     }
     
-    func loadSettings() {
+    private func updateHeartRate(rate: Int) {
+        heartRate = rate
+
+        if isAboveUpperLimit() {
+            player.play(sound: HBSSound.UpperLimit.rawValue)
+            return
+        }
+        
+        if isBellowLowerLimit() {
+            player.play(sound: HBSSound.LowerLimit.rawValue)
+            return
+        }
+    }
+    
+    private func  isAboveUpperLimit() -> Bool {
+        heartRate > upperLimit
+    }
+    
+    private func  isBellowLowerLimit() -> Bool {
+        heartRate < lowerLimit
+    }
+    
+    private func loadSettings() {
         let data = file.load()
         upperLimit = data.upperLimit
         lowerLimit = data.lowerLimit
@@ -62,37 +84,15 @@ final class AppState: ObservableObject {
         )
         file.write(data: toSave)
     }
-    
-    func updateHeartRate(rate: Int) {
-        heartRate = rate
-
-        if isAboveUpperLimit() {
-            player.play(sound: HBSSound.UpperLimit.rawValue)
-            return
-        }
-        
-        if isBellowLowerLimit() {
-            player.play(sound: HBSSound.LowerLimit.rawValue)
-            return
-        }
-    }
-    
-    func  isAboveUpperLimit() -> Bool {
-        heartRate > upperLimit
-    }
-    
-    func  isBellowLowerLimit() -> Bool {
-        heartRate < lowerLimit
-    }
         
     func startTracking() {
-        //heartRate = 0;
+        heartRate = 120;
         uiState = UIStateEnum.Running
         sampler.run()
     }
     
     func stopTracking() {
-        //heartRate = 0;
+        heartRate = 0;
         uiState = UIStateEnum.Stopped
         sampler.stop()
     }
