@@ -112,12 +112,13 @@ class SampleManager {
     }
     
     func stop() {
-        if task != nil || task.isCancelled == false {
-            task.cancel()
-        }
-       
         if (observerQuery != nil) {
             store.stop(observerQuery)
         }
+        
+        if task == nil || task.isCancelled == false {
+            return
+        }
+        task.cancel()
     }
 }
