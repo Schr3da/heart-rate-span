@@ -28,6 +28,7 @@ struct ContentView: View {
         VStack {
             Spacer(minLength: 20)
             TrackerView(
+                uiState: $state.uiState,
                 upperLimit: $state.upperLimit,
                 lowerLimit: $state.lowerLimit,
                 heartrate: $state.heartRate

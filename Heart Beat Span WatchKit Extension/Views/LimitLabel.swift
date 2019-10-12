@@ -8,11 +8,6 @@
 
 import SwiftUI
 
-enum LimitType: String {
-    case Up = "up"
-    case Down = "down"
-}
-
 struct LimitLabel: View {
     
     @Binding var value: Int

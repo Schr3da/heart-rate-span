@@ -16,6 +16,11 @@ enum UIStateEnum: String {
     case Running = "running"
 }
 
+enum LimitType: String {
+    case Up = "up"
+    case Down = "down"
+}
+
 final class AppState: ObservableObject {
 
     @Published var uiState: UIStateEnum = UIStateEnum.Stopped
@@ -46,51 +51,48 @@ final class AppState: ObservableObject {
     }
     
     func saveSettings(_ upperLimit: Int, _ lowerLimit: Int) {
-        self.upperLimit = upperLimit
-        self.lowerLimit = lowerLimit
+        self.upperLimit = max(upperLimit, lowerLimit)
+        self.lowerLimit = min(lowerLimit, upperLimit)
         
         let toSave = HBSFileData(
             enableSound: isSoundEnabled,
             enableVibration: isSoundEnabled,
-            upperLimit: upperLimit,
-            lowerLimit: lowerLimit
+            upperLimit: self.upperLimit,
+            lowerLimit: self.lowerLimit
         )
         file.write(data: toSave)
     }
     
     func updateHeartRate(rate: Int) {
         heartRate = rate
+
         if isAboveUpperLimit() {
+            player.play(sound: HBSSound.UpperLimit.rawValue)
             return
         }
         
         if isBellowLowerLimit() {
+            player.play(sound: HBSSound.LowerLimit.rawValue)
             return
         }
     }
     
     func  isAboveUpperLimit() -> Bool {
-        if heartRate <= upperLimit {
-            return false
-        }
-        player.play(sound: HBSSound.UpperLimit.rawValue)
-        return true
+        heartRate > upperLimit
     }
     
     func  isBellowLowerLimit() -> Bool {
-        if heartRate >= lowerLimit {
-            return false
-        }
-        player.play(sound: HBSSound.LowerLimit.rawValue)
-        return true
+        heartRate < lowerLimit
     }
         
     func startTracking() {
+        heartRate = 0;
         uiState = UIStateEnum.Running
         sampler.run()
     }
     
     func stopTracking() {
+        heartRate = 0;
         uiState = UIStateEnum.Stopped
         sampler.stop()
     }

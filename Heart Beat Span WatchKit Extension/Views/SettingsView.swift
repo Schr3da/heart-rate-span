@@ -26,6 +26,10 @@ struct SettingsView: View {
         presentationMode.wrappedValue.dismiss()
     }
     
+    private func isSaveDisabled() -> Bool {
+        $upperLimit.wrappedValue == $lowerLimit.wrappedValue
+    }
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -33,6 +37,8 @@ struct SettingsView: View {
                 LimitLabel(value: $lowerLimit, type: LimitType.Down)
                 Spacer(minLength: 14)
                 ActionButton(title: "Save", color: Color.blue, onClick: handleSave)
+                    .disabled(isSaveDisabled())
+                    .opacity(isSaveDisabled() ? 0.6 : 1)
                 ActionButton(title: "Cancel", color: Color.red, onClick: handleCancel)
             }
         }.navigationBarTitle("")

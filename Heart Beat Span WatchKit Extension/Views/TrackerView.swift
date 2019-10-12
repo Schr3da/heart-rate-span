@@ -9,12 +9,17 @@ import SwiftUI
 
 struct TrackerView: View {
     
+    @Binding var uiState: UIStateEnum
     @Binding var upperLimit: Int
     @Binding var lowerLimit: Int
     @Binding var heartrate: Int
+
+    private func isTracking() -> Bool {
+        uiState == UIStateEnum.Running
+    }
     
     private func getHeartRate() -> String {
-        heartrate == 0 ?
+        isTracking() == false || heartrate == 0 ?
             "\(Ascii.Heart.rawValue) -" :
             "\(Ascii.Heart.rawValue) \(heartrate)"
     }
@@ -44,23 +49,16 @@ struct TrackerView: View {
                     alignment: Alignment.leading
                 )
             VStack {
-                Text(getUpperLimit())
-                    .frame(
-                        minWidth: 0,
-                        maxWidth: 50,
-                        minHeight: 0,
-                        maxHeight: .infinity,
-                        alignment: Alignment.trailing
-                    )
-                Text(getLowerLimit())
-                    .frame(
-                        minWidth: 0,
-                        maxWidth: 50,
-                        minHeight: 0,
-                        maxHeight: .infinity,
-                        alignment: Alignment.trailing
-                    )
-            }.foregroundColor(Color.gray)
+                TrackerLimitLabel(title: getUpperLimit(), color: { () in
+                    self.isTracking() && self.heartrate > self.upperLimit ?
+                    Color.red : Color.gray
+                })
+                TrackerLimitLabel(title: getLowerLimit(), color: { () in
+                    self.isTracking() && self.heartrate < self.lowerLimit ?
+                    Color.red : Color.gray
+                })
+                
+            }.opacity(0.75)
         }
     }
 }
