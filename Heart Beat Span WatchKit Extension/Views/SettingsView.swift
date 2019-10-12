@@ -41,7 +41,7 @@ struct SettingsView: View {
                     .opacity(isSaveDisabled() ? 0.6 : 1)
                 ActionButton(title: "Cancel", color: Color.red, onClick: handleCancel)
             }
-        }.navigationBarTitle("")
+            }.navigationBarTitle("")
     }
 }
 

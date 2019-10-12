@@ -86,13 +86,13 @@ final class AppState: ObservableObject {
     }
         
     func startTracking() {
-        heartRate = 0;
+        //heartRate = 0;
         uiState = UIStateEnum.Running
         sampler.run()
     }
     
     func stopTracking() {
-        heartRate = 0;
+        //heartRate = 0;
         uiState = UIStateEnum.Stopped
         sampler.stop()
     }

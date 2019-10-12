@@ -20,8 +20,8 @@ struct TrackerView: View {
     
     private func getHeartRate() -> String {
         isTracking() == false || heartrate == 0 ?
-            "\(Ascii.Heart.rawValue) -" :
-            "\(Ascii.Heart.rawValue) \(heartrate)"
+            "-" :
+            "\(heartrate)"
     }
     
     private func getUpperLimit() -> String {
@@ -38,8 +38,12 @@ struct TrackerView: View {
     
     var body: some View {
         HStack {
+            Text(Ascii.Heart.rawValue)
+                .font(Font.system(size: 38))
+                .foregroundColor(Color.gray)            
             Text(getHeartRate())
                 .font(Font.system(size: 38))
+                .foregroundColor(Color.gray)
                 .padding(0)
                 .frame(
                     minWidth: 0,
@@ -51,14 +55,14 @@ struct TrackerView: View {
             VStack {
                 TrackerLimitLabel(title: getUpperLimit(), color: { () in
                     self.isTracking() && self.heartrate > self.upperLimit ?
-                    Color.red : Color.gray
+                    Color.white : Color.gray
                 })
                 TrackerLimitLabel(title: getLowerLimit(), color: { () in
                     self.isTracking() && self.heartrate < self.lowerLimit ?
-                    Color.red : Color.gray
+                    Color.white : Color.gray
                 })
                 
-            }.opacity(0.75)
+            }
         }
     }
 }
