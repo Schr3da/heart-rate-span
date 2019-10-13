@@ -35,11 +35,11 @@ final class AppState: ObservableObject {
     
     private let player = AudioPlayer()
     private let file = HBSFileManager()
-    private let sampler = SampleManager()
+    private let workout = WorkoutManager()
     
     init() {
         loadSettings()
-        sampler.setUpdateCb(cb: updateHeartRate)
+        workout.setUpdateCb(cb: updateHeartRate)
     }
     
     private func updateHeartRate(rate: Int) {
@@ -88,12 +88,12 @@ final class AppState: ObservableObject {
     func startTracking() {
         heartRate = 0;
         uiState = UIStateEnum.Running
-        sampler.run()
+        workout.run()
     }
     
     func stopTracking() {
         heartRate = 0;
         uiState = UIStateEnum.Stopped
-        sampler.stop()
+        workout.stop()
     }
 }

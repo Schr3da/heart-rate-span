@@ -8,88 +8,116 @@
 
 import HealthKit
 
-class WorkoutManager: NSObject, HKWorkoutSessionDelegate {
+let typesToShare: Set = [
+    HKQuantityType.workoutType()
+]
 
-    private var store: HKHealthStore = HKHealthStore()
+let typesToRead: Set = [
+    HKQuantityType.quantityType(forIdentifier: .heartRate)!,
+    HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
+]
+
+let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
+
+func getConfig() -> HKWorkoutConfiguration {
+    let config = HKWorkoutConfiguration();
+    config.activityType = .running
+    config.locationType = .outdoor
+    return config
+}
+
+class WorkoutManager: NSObject, HKLiveWorkoutBuilderDelegate {
+    private let store: HKHealthStore = HKHealthStore()
+    private let config = getConfig()
+    
     private var updateCb: ((Int) -> Void)!
     private var session: HKWorkoutSession!
-    private let config: HKWorkoutConfiguration = HKWorkoutConfiguration()
+    private var builder: HKLiveWorkoutBuilder!
 
-    func workoutSession(_ workoutSession: HKWorkoutSession, didChangeTo toState: HKWorkoutSessionState, from fromState: HKWorkoutSessionState, date: Date) {
-        print("didChangeTo: " + String(toState.rawValue))
-    }
+    func workoutBuilderDidCollectEvent(_ workoutBuilder: HKLiveWorkoutBuilder) { }
     
-    func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: Error) {
-        print("error: " + error.localizedDescription)
-    }
-    
-    private func hasPermissions() -> Bool {
-        guard let type = HKObjectType.quantityType(forIdentifier: .heartRate) else {
-            return false
+    func workoutBuilder(_ workoutBuilder: HKLiveWorkoutBuilder, didCollectDataOf collectedTypes: Set<HKSampleType>) {
+        for type in collectedTypes {
+            guard let quantityType = type as? HKQuantityType else {
+                continue
+            }
+                     
+            if quantityType.is(compatibleWith: heartRateUnit) == false {
+                continue
+            }
+        
+            guard let statistics = workoutBuilder.statistics(for: quantityType) else {
+                continue
+            }
+            
+            let value = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit)
+            DispatchQueue.main.async {
+                self.updateCb(Int(value!))
+            }
         }
-        let status = store.authorizationStatus(for: type)
-        return status == HKAuthorizationStatus.sharingAuthorized
     }
     
-    private func requestPermissions() {
-        let allTypes = Set([HKObjectType.quantityType(forIdentifier: .heartRate)!])
-        store.requestAuthorization(toShare: allTypes, read: allTypes, completion: { (success, error) in
-            if !success {
+    private func ensurePermissions(cb: @escaping () -> Void) {
+        let status = store.authorizationStatus(for: HKQuantityType.workoutType())
+        
+        if status == HKAuthorizationStatus.sharingAuthorized {
+            cb()
+            return
+        }
+        
+        store.requestAuthorization(toShare: typesToShare, read: typesToRead, completion: { (success, error) in
+            guard success else {
                 return
             }
+            cb()
         })
     }
     
-    func run() {
-        stop()
-        
+    private func prepareToStart() {
         do {
-            config.activityType = .other
-            session = try HKWorkoutSession.init(healthStore: store, configuration: config)
-            session.delegate = self
-            session.startActivity(with: Date())
-            
-            let builder = session.associatedWorkoutBuilder()
+            session = try HKWorkoutSession(healthStore: store, configuration: config)
+            builder = session.associatedWorkoutBuilder()
             builder.dataSource = HKLiveWorkoutDataSource(healthStore: store, workoutConfiguration: config)
-            builder.beginCollection(withStart: Date()) { (success, error) in
-                print("end")
+            builder.delegate = self;
+            session.startActivity(with: Date())
+            builder.beginCollection(withStart: Date()) { (success, error) in }
+        } catch { }
+    }
+    
+    private func prepareToStop() {
+        if session != nil {
+            session.end()
+            session = nil
+        }
+        
+        if builder == nil {
+            return
+        }
+  
+        builder.endCollection(withEnd: Date()) { (success, error) in
+            guard success else {
+                print("error: " + error!.localizedDescription)
+                return
             }
-            
-            /*
-             let statistics = workoutBuilder.statistics(for: quantityType)
-             let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
-             let value = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit)
-             let roundedValue = Double( round( 1 * value! ) / 1 )
-             label.setText("\(roundedValue) BPM")
-             
-             // END
-             session.end()
-             builder.endCollection(withEnd: Date()) { (success, error) in
-                 self.builder.finishWorkout { (workout, error) in
-                     // Dispatch to main, because we are updating the interface.
-                     DispatchQueue.main.async() {
-                         self.dismiss()
-                     }
-                 }
-             }
-             
-             
-             */
-            
-        } catch {
-            print("error")
+            self.builder.finishWorkout { (workout, error) in
+                self.builder = nil
+            }
         }
     }
     
     func setUpdateCb(cb: ((Int) -> Void)!) {
         self.updateCb = cb
     }
-    
+        
     func stop() {
-        if session == nil {
-            return
+        prepareToStop()
+    }
+    
+    func run() {
+        ensurePermissions() { () in
+            self.prepareToStop()
+            self.prepareToStart()
         }
-        session.end()
     }
 }
 

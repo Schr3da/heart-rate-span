@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		110BBDD2234BB90600F6C9B7 /* SampleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110BBDD1234BB90600F6C9B7 /* SampleManager.swift */; };
 		110BBDD4234BCB8E00F6C9B7 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110BBDD3234BCB8E00F6C9B7 /* FileManager.swift */; };
 		110BBDD6234BCFE300F6C9B7 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110BBDD5234BCFE300F6C9B7 /* Json.swift */; };
 		115A7FF7234E766A00754185 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115A7FF6234E766A00754185 /* AudioPlayer.swift */; };
@@ -76,7 +75,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		110BBDD1234BB90600F6C9B7 /* SampleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleManager.swift; sourceTree = "<group>"; };
 		110BBDD3234BCB8E00F6C9B7 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		110BBDD5234BCFE300F6C9B7 /* Json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
 		115A7FF6234E766A00754185 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 				115A7FF6234E766A00754185 /* AudioPlayer.swift */,
 				110BBDD3234BCB8E00F6C9B7 /* FileManager.swift */,
 				110BBDD5234BCFE300F6C9B7 /* Json.swift */,
-				110BBDD1234BB90600F6C9B7 /* SampleManager.swift */,
 				11A14239235251DE0089757B /* WorkoutManager.swift */,
 			);
 			path = Common;
@@ -350,7 +347,6 @@
 				11EEDBEA234E520000DE7480 /* Icon.swift in Sources */,
 				11EEDBE8234E4F8C00DE7480 /* ActionButton.swift in Sources */,
 				11EEDBEC234E53FB00DE7480 /* Ascii.swift in Sources */,
-				110BBDD2234BB90600F6C9B7 /* SampleManager.swift in Sources */,
 				11CA24B7234DF9BE005E013A /* TrackerView.swift in Sources */,
 				11CA24BB234DF9D3005E013A /* LimitLabel.swift in Sources */,
 				119A18CA234B474D00F58726 /* ContentView.swift in Sources */,
