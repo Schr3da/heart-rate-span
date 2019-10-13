@@ -18,8 +18,12 @@ struct TrackerView: View {
         uiState == UIStateEnum.Running
     }
     
+    private func hasStopped() -> Bool {
+        uiState == UIStateEnum.Stopped
+    }
+
     private func getHeartRate() -> String {
-        isTracking() == false || heartrate == 0 ?
+        hasStopped() || heartrate == 0 ?
             "-" :
             "\(heartrate)"
     }

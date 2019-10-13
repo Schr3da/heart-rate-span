@@ -13,6 +13,7 @@ import HealthKit
 
 enum UIStateEnum: String {
     case Stopped = "stopped"
+    case Prepare = "prepare"
     case Running = "running"
 }
 
@@ -27,49 +28,28 @@ final class AppState: ObservableObject {
     @Published var upperLimit = 0
     @Published var lowerLimit = 0
     @Published var heartRate = 0
-    @Published var isSoundEnabled = false
-    @Published var isVibrationEnabled = false
+    @Published var permissionDenied = false
     
     static let startRange = 60
     static let endRange = 180
     
-    private let player = AudioPlayer()
     private let file = HBSFileManager()
     private let workout = WorkoutManager()
     
     init() {
         loadSettings()
+        workout.setStartCb(cb: startTracking)
         workout.setUpdateCb(cb: updateHeartRate)
     }
     
     private func updateHeartRate(rate: Int) {
         heartRate = rate
-
-        if isAboveUpperLimit() {
-            //player.play(sound: HBSSound.UpperLimit.rawValue)
-            return
-        }
-        
-        if isBellowLowerLimit() {
-            //player.play(sound: HBSSound.LowerLimit.rawValue)
-            return
-        }
-    }
-    
-    private func  isAboveUpperLimit() -> Bool {
-        heartRate > upperLimit
-    }
-    
-    private func  isBellowLowerLimit() -> Bool {
-        heartRate < lowerLimit
     }
     
     private func loadSettings() {
         let data = file.load()
         upperLimit = data.upperLimit
         lowerLimit = data.lowerLimit
-        isSoundEnabled = data.isSoundEnabled
-        isVibrationEnabled = data.isVibrationEnabled
     }
     
     func saveSettings(_ upperLimit: Int, _ lowerLimit: Int) {
@@ -77,18 +57,26 @@ final class AppState: ObservableObject {
         self.lowerLimit = min(lowerLimit, upperLimit)
         
         let toSave = HBSFileData(
-            enableSound: isSoundEnabled,
-            enableVibration: isSoundEnabled,
             upperLimit: self.upperLimit,
             lowerLimit: self.lowerLimit
         )
         file.write(data: toSave)
     }
         
-    func startTracking() {
+    func prepareTracking() {
         heartRate = 0;
-        uiState = UIStateEnum.Running
-        workout.run()
+        workout.run(upperLimit: upperLimit, lowerLimit: lowerLimit) { (hasPermission) in
+            self.permissionDenied = hasPermission == false
+            if self.permissionDenied {
+                self.stopTracking()
+                return
+            }
+            self.uiState = UIStateEnum.Prepare
+        }
+    }
+    
+    func startTracking() {
+        self.uiState = UIStateEnum.Running
     }
     
     func stopTracking() {

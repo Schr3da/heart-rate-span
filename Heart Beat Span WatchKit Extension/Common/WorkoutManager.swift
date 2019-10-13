@@ -7,6 +7,7 @@
 //
 
 import HealthKit
+import WatchKit
 
 let typesToShare: Set = [
     HKQuantityType.workoutType()
@@ -29,11 +30,16 @@ func getConfig() -> HKWorkoutConfiguration {
 class WorkoutManager: NSObject, HKLiveWorkoutBuilderDelegate {
     private let store: HKHealthStore = HKHealthStore()
     private let config = getConfig()
-    
-    private var updateCb: ((Int) -> Void)!
+    private let notifier = NotifyManager()
+
+    private var upperLimit = 0
+    private var lowerLimit = 0
+    private var ready = false
     private var session: HKWorkoutSession!
     private var builder: HKLiveWorkoutBuilder!
-
+    private var updateCb: ((Int) -> Void)!
+    private var startCb: (() -> Void)!
+    
     func workoutBuilderDidCollectEvent(_ workoutBuilder: HKLiveWorkoutBuilder) { }
     
     func workoutBuilder(_ workoutBuilder: HKLiveWorkoutBuilder, didCollectDataOf collectedTypes: Set<HKSampleType>) {
@@ -45,31 +51,20 @@ class WorkoutManager: NSObject, HKLiveWorkoutBuilderDelegate {
             if quantityType.is(compatibleWith: heartRateUnit) == false {
                 continue
             }
-        
+
             guard let statistics = workoutBuilder.statistics(for: quantityType) else {
                 continue
             }
             
             let value = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit)
-            DispatchQueue.main.async {
-                self.updateCb(Int(value!))
-            }
+            self.update(heartRate: Int(value!))
         }
     }
     
-    private func ensurePermissions(cb: @escaping () -> Void) {
-        let status = store.authorizationStatus(for: HKQuantityType.workoutType())
-        
-        if status == HKAuthorizationStatus.sharingAuthorized {
-            cb()
-            return
-        }
-        
+    private func ensurePermissions(cb: @escaping (Bool) -> Void) {
         store.requestAuthorization(toShare: typesToShare, read: typesToRead, completion: { (success, error) in
-            guard success else {
-                return
-            }
-            cb()
+            let status = self.store.authorizationStatus(for: HKQuantityType.workoutType())
+            cb(status == HKAuthorizationStatus.sharingAuthorized)
         })
     }
     
@@ -85,6 +80,8 @@ class WorkoutManager: NSObject, HKLiveWorkoutBuilderDelegate {
     }
     
     private func prepareToStop() {
+        ready = false
+        
         if session != nil {
             session.end()
             session = nil
@@ -96,7 +93,6 @@ class WorkoutManager: NSObject, HKLiveWorkoutBuilderDelegate {
   
         builder.endCollection(withEnd: Date()) { (success, error) in
             guard success else {
-                print("error: " + error!.localizedDescription)
                 return
             }
             self.builder.finishWorkout { (workout, error) in
@@ -105,18 +101,60 @@ class WorkoutManager: NSObject, HKLiveWorkoutBuilderDelegate {
         }
     }
     
+    private func setLimits(_ upper: Int, _ lower: Int) {
+        upperLimit = upper
+        lowerLimit = lower
+    }
+    
+    private func update(heartRate: Int) {
+        DispatchQueue.main.async {
+            self.updateCb(heartRate)
+        }
+        
+        if ready == false && heartRate > lowerLimit {
+            ready = true
+            self.startCb()
+        }
+        
+        if ready == false {
+            return
+        }
+            
+        if heartRate > upperLimit {
+            notifier.play(haptic: WKHapticType.directionUp)
+        } else if heartRate < lowerLimit {
+            notifier.play(haptic: WKHapticType.directionDown)
+        }
+    }
+    
+    func setStartCb(cb: (() -> Void)!) {
+        self.startCb = cb
+    }
+    
     func setUpdateCb(cb: ((Int) -> Void)!) {
         self.updateCb = cb
     }
-        
+    
     func stop() {
         prepareToStop()
     }
     
-    func run() {
-        ensurePermissions() { () in
+    func run(upperLimit: Int, lowerLimit: Int,  cb: @escaping (Bool) -> Void) {
+        ensurePermissions() { (hasPermission) in
+            let permissionCb = { () in
+                DispatchQueue.main.async {
+                    cb(hasPermission)
+                }
+            }
+            
+            if hasPermission == false {
+                return permissionCb()
+            }
+            
+            self.setLimits(upperLimit, upperLimit)
             self.prepareToStop()
             self.prepareToStart()
+            permissionCb()
         }
     }
 }

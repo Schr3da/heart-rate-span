@@ -18,9 +18,9 @@ struct ContentView: View {
     }
     
     private func toggleTrack() {
-        state.uiState == UIStateEnum.Running ?
-        state.stopTracking() :
-        state.startTracking()
+        state.uiState == UIStateEnum.Stopped ?
+            state.prepareTracking() :
+            state.stopTracking()
     }
     
     @ViewBuilder
@@ -35,20 +35,24 @@ struct ContentView: View {
             )
             Divider()
             ActionButton(
-                title: state.uiState == UIStateEnum.Running ? "Stop" : "Track",
-                color: state.uiState == UIStateEnum.Running ? Color.red : Color.yellow,
+                title: state.uiState == UIStateEnum.Stopped  ? "Track" : "Stop",
+                color: state.uiState == UIStateEnum.Stopped ? Color.yellow : Color.red ,
                 onClick: toggleTrack
             )
             ActionButton(title: "Settings", color: Color.white, onClick: toggleSettings )
             .sheet(isPresented: $showSettings) {
                 SettingsView(
-                    isSoundEnabled: self.state.isSoundEnabled,
-                    isVibrationEnabled: self.state.isVibrationEnabled,
                     upperLimit: self.state.upperLimit,
                     lowerLimit:  self.state.lowerLimit
                 ).environmentObject(self.state)
-            }.opacity(state.uiState == UIStateEnum.Running ? 0.6 : 1)
-            .disabled(state.uiState == UIStateEnum.Running)
+            }.opacity(state.uiState == UIStateEnum.Stopped ? 1 : 0.6)
+            .disabled(state.uiState != UIStateEnum.Stopped)
+        }.alert(isPresented: $state.permissionDenied) { () -> Alert in
+            Alert.init(
+                title: Text("Permission Denied"),
+                message: Text("HBS requires read and write access to data to work"),
+                dismissButton: Alert.Button.cancel(Text("Ok"))
+            )
         }
     }
 }
@@ -56,8 +60,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView(
-            isSoundEnabled: false,
-            isVibrationEnabled: false,
             upperLimit: 0,
             lowerLimit: 0
         ).environmentObject(AppState())

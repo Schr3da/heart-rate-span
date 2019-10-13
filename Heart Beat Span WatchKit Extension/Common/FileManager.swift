@@ -12,12 +12,8 @@ struct HBSFileData: Codable {
     
     let upperLimit: Int
     let lowerLimit: Int
-    let isSoundEnabled: Bool
-    let isVibrationEnabled: Bool
     
-    init(enableSound: Bool, enableVibration: Bool, upperLimit: Int, lowerLimit: Int) {
-        self.isSoundEnabled = enableSound
-        self.isVibrationEnabled = enableVibration
+    init(upperLimit: Int, lowerLimit: Int) {
         self.upperLimit = upperLimit
         self.lowerLimit = lowerLimit
     }
@@ -36,8 +32,6 @@ class HBSFileManager {
     
     func load() -> HBSFileData {
         let defautValue = HBSFileData.init(
-            enableSound: true,
-            enableVibration: true,
             upperLimit: 120,
             lowerLimit: 100
         )
