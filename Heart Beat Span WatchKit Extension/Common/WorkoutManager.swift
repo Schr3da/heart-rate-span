@@ -113,7 +113,9 @@ class WorkoutManager: NSObject, HKLiveWorkoutBuilderDelegate {
         
         if ready == false && heartRate > lowerLimit {
             ready = true
-            self.startCb()
+            DispatchQueue.main.async {
+                self.startCb()
+            }
         }
         
         if ready == false {
