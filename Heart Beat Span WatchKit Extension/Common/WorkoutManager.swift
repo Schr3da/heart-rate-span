@@ -116,6 +116,7 @@ class WorkoutManager: NSObject, HKLiveWorkoutBuilderDelegate {
             DispatchQueue.main.async {
                 self.startCb()
             }
+            return
         }
         
         if ready == false {
@@ -153,7 +154,7 @@ class WorkoutManager: NSObject, HKLiveWorkoutBuilderDelegate {
                 return permissionCb()
             }
             
-            self.setLimits(upperLimit, upperLimit)
+            self.setLimits(upperLimit, lowerLimit)
             self.prepareToStop()
             self.prepareToStart()
             permissionCb()
