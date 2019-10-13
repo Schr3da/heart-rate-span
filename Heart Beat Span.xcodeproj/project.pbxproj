@@ -10,6 +10,7 @@
 		110BBDD4234BCB8E00F6C9B7 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110BBDD3234BCB8E00F6C9B7 /* FileManager.swift */; };
 		110BBDD6234BCFE300F6C9B7 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110BBDD5234BCFE300F6C9B7 /* Json.swift */; };
 		11355067235393E800D6A94C /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11355066235393E800D6A94C /* WorkoutSession.swift */; };
+		113550692353A82000D6A94C /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113550682353A82000D6A94C /* Utils.swift */; };
 		115A7FF7234E766A00754185 /* NotifyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115A7FF6234E766A00754185 /* NotifyManager.swift */; };
 		11900E48234B995D0021DD08 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11900E47234B995D0021DD08 /* HealthKit.framework */; };
 		119A1897234B457200F58726 /* HBS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 119A1896234B457200F58726 /* HBS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -79,6 +80,7 @@
 		110BBDD3234BCB8E00F6C9B7 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		110BBDD5234BCFE300F6C9B7 /* Json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
 		11355066235393E800D6A94C /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
+		113550682353A82000D6A94C /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		115A7FF6234E766A00754185 /* NotifyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyManager.swift; sourceTree = "<group>"; };
 		11900E44234B991E0021DD08 /* HBS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HBS.entitlements; sourceTree = "<group>"; };
 		11900E45234B995D0021DD08 /* Heart Beat Span WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Heart Beat Span WatchKit Extension.entitlements"; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				110BBDD5234BCFE300F6C9B7 /* Json.swift */,
 				11A14239235251DE0089757B /* WorkoutManager.swift */,
 				11355066235393E800D6A94C /* WorkoutSession.swift */,
+				113550682353A82000D6A94C /* Utils.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				11355067235393E800D6A94C /* WorkoutSession.swift in Sources */,
 				119A18CC234B47E700F58726 /* HostingController.swift in Sources */,
 				119A18C7234B474D00F58726 /* AppContentView.swift in Sources */,
+				113550692353A82000D6A94C /* Utils.swift in Sources */,
 				11A1423823521BF60089757B /* TrackerLimitLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,6 +10,7 @@ import HealthKit
 import WatchKit
 
 class WorkoutManager {
+    
     private let store: HKHealthStore
     private let session: WorkoutSession
     
@@ -17,15 +18,17 @@ class WorkoutManager {
         store = HKHealthStore()
         session = WorkoutSession(
             onStart: {() in },
-            onUpdate: {(_) in }
+            onUpdate: {(_) in },
+            onEnd: {() in }
         )
     }
     
-    init(onStartCb: @escaping () -> Void, onUpdate: @escaping (Int) -> Void ) {
+    init(onStart: @escaping () -> Void, onUpdate: @escaping (Int) -> Void, onEnd: @escaping () -> Void ) {
         store = HKHealthStore()
         session = WorkoutSession(
-            onStart: onStartCb,
-            onUpdate: onUpdate
+            onStart: onStart,
+            onUpdate: onUpdate,
+            onEnd: onEnd
         )
     }
     

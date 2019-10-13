@@ -39,8 +39,9 @@ final class AppState: ObservableObject {
     init() {
         loadSettings()
         workout = WorkoutManager(
-            onStartCb: startTracking,
-            onUpdate: update
+            onStart: startTracking,
+            onUpdate: update,
+            onEnd:  stopTracking
         )
     }
     
@@ -88,8 +89,10 @@ final class AppState: ObservableObject {
     }
     
     func stopTracking() {
-        heartRate = 0;
-        uiState = UIStateEnum.Stopped
-        workout.stop()
+        DispatchQueue.main.async {
+            self.heartRate = 0;
+            self.uiState = UIStateEnum.Stopped
+            self.workout.stop()
+        }
     }
 }

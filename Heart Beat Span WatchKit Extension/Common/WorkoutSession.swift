@@ -12,20 +12,23 @@ class WorkoutSession: NSObject, HKLiveWorkoutBuilderDelegate {
 
     private let config: HKWorkoutConfiguration
     private let heartRateUnit: HKUnit
+    private let notifier: NotifyManager
     private let onStartCb: () -> Void
     private let onUpdateCb: (Int) -> Void
-    private let notifier: NotifyManager
+    private let onEndCb: () -> Void
 
-    private var ready: Bool
+    private var readyToTrack: Bool
     private var lowerLimit: Int
     private var upperLimit: Int
+    private var limitTimestamp: Date!
     private var session: HKWorkoutSession!
     private var builder: HKLiveWorkoutBuilder!
     
-    init(onStart: @escaping () -> Void, onUpdate: @escaping (Int) -> Void) {
-        self.ready = false
+    init(onStart: @escaping () -> Void, onUpdate: @escaping (Int) -> Void, onEnd: @escaping () -> Void) {
+        self.readyToTrack = false
         self.lowerLimit = 0
         self.upperLimit = 0
+        self.limitTimestamp = nil
         self.config = HKWorkoutConfiguration()
         self.config.activityType = .running
         self.config.locationType = .outdoor
@@ -33,6 +36,7 @@ class WorkoutSession: NSObject, HKLiveWorkoutBuilderDelegate {
         self.notifier = NotifyManager()
         self.onStartCb = onStart
         self.onUpdateCb = onUpdate
+        self.onEndCb = onEnd
         super.init()
     }
     
@@ -44,7 +48,48 @@ class WorkoutSession: NSObject, HKLiveWorkoutBuilderDelegate {
         [HKQuantityType.quantityType(forIdentifier: .heartRate)!,
         HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!]
     }
+        
+    private func handleTimestampLimit(heartRate: Int) {
+        if hasReachedTimestampLimit(date: limitTimestamp) {
+            onEndCb()
+            return
+        }
+        
+        if isInRange(value: heartRate, upperLimit: upperLimit, lowerLimit: lowerLimit) {
+            limitTimestamp = nil
+        } else if limitTimestamp == nil {
+            limitTimestamp = Date()
+        }
+    }
     
+    private func handleLimits(heartRate: Int) {
+        if isAboveUpperLimit(value: heartRate, limit: upperLimit) {
+            notifier.notifyAboveUpperLimit()
+        } else if isBellowLowerLimit(value: heartRate, limit: lowerLimit) {
+            notifier.notifyBelowLowerLimit()
+        }
+    }
+    
+    private func handleReadyToTrack(heartRate: Int) {
+        if readyToTrack == true || isAboveLowerLimit(value: heartRate, limit: lowerLimit) == false {
+            return
+        }
+        self.readyToTrack = true
+        self.onStartCb()
+    }
+    
+    private func update(value: Int) {
+        self.onUpdateCb(value)
+
+        handleReadyToTrack(heartRate: value)
+        if readyToTrack == false {
+            return;
+        }
+        
+        handleLimits(heartRate: value)
+        handleTimestampLimit(heartRate: value)
+    }
+     
     func workoutBuilderDidCollectEvent(_ workoutBuilder: HKLiveWorkoutBuilder) { }
     
     func workoutBuilder(_ workoutBuilder: HKLiveWorkoutBuilder, didCollectDataOf collectedTypes: Set<HKSampleType>) {
@@ -62,30 +107,10 @@ class WorkoutSession: NSObject, HKLiveWorkoutBuilderDelegate {
             }
             
             let value = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit)
-            self.update(heartRate: Int(value!))
+            self.update(value: Int(value!))
         }
     }
     
-    private func update(heartRate: Int) {
-        self.onUpdateCb(heartRate)
-
-        if ready == false && heartRate > lowerLimit {
-            self.ready = true
-            self.onStartCb()
-            return
-        }
-
-        if ready == false {
-            return
-        }
-            
-        if heartRate > upperLimit {
-            notifier.notifyAboveUpperLimit()
-        } else if heartRate < lowerLimit {
-            notifier.notifyBelowLowerLimit()
-        }
-    }
-     
     func create(store: HKHealthStore, upperLimit: Int, lowerLimit: Int) {
         if session != nil || builder != nil {
             return
@@ -105,24 +130,26 @@ class WorkoutSession: NSObject, HKLiveWorkoutBuilderDelegate {
     }
     
     func destroy() {
-
-      if session != nil {
-          session.end()
-          session = nil
-      }
+        limitTimestamp = nil
+        readyToTrack = false
+        
+        if session != nil {
+            session.end()
+            session = nil
+        }
       
-      if builder == nil {
-          return
-      }
+        if builder == nil {
+            return
+        }
 
-      builder.endCollection(withEnd: Date()) { (success, error) in
-          guard success else {
-              return
-          }
-          self.builder.finishWorkout { (workout, error) in
-              self.builder = nil
-          }
-      }
+        builder.endCollection(withEnd: Date()) { (success, error) in
+            guard success else {
+                return
+            }
+            self.builder.finishWorkout { (workout, error) in
+                self.builder = nil
+            }
+        }
     }
     
 }
