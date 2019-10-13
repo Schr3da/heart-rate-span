@@ -56,7 +56,7 @@ class HBSFileManager {
                 try content.write(to: file, atomically: false, encoding: .utf8)
             }
             catch {
-                print("Unable to send")
+                print("Unable to save")
             }
         }
     }

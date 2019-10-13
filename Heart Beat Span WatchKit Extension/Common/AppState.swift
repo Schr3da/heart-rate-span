@@ -34,16 +34,14 @@ final class AppState: ObservableObject {
     static let endRange = 180
     
     private let file = HBSFileManager()
-    private let workout = WorkoutManager()
+    private var workout = WorkoutManager()
     
     init() {
         loadSettings()
-        workout.setStartCb(cb: startTracking)
-        workout.setUpdateCb(cb: updateHeartRate)
-    }
-    
-    private func updateHeartRate(rate: Int) {
-        heartRate = rate
+        workout = WorkoutManager(
+            onStartCb: startTracking,
+            onUpdate: update
+        )
     }
     
     private func loadSettings() {
@@ -65,18 +63,28 @@ final class AppState: ObservableObject {
         
     func prepareTracking() {
         heartRate = 0;
-        workout.run(upperLimit: upperLimit, lowerLimit: lowerLimit) { (hasPermission) in
-            self.permissionDenied = hasPermission == false
-            if self.permissionDenied {
-                self.stopTracking()
-                return
+        workout.start(upperLimit: upperLimit, lowerLimit: lowerLimit) { (hasPermission) in
+            DispatchQueue.main.async {
+                self.permissionDenied = hasPermission == false
+                if self.permissionDenied {
+                    self.stopTracking()
+                } else {
+                    self.uiState = UIStateEnum.Prepare
+                }
             }
-            self.uiState = UIStateEnum.Prepare
         }
     }
     
     func startTracking() {
-        self.uiState = UIStateEnum.Running
+        DispatchQueue.main.async {
+           self.uiState = UIStateEnum.Running
+        }
+    }
+    
+    private func update(heartRate: Int) {
+        DispatchQueue.main.async {
+           self.heartRate = heartRate
+        }
     }
     
     func stopTracking() {

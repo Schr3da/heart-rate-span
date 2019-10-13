@@ -12,6 +12,14 @@ class NotifyManager {
     func play(haptic: WKHapticType) {
         WKInterfaceDevice.current().play(haptic)
     }
+    
+    func notifyAboveUpperLimit() {
+        play(haptic: WKHapticType.directionUp)
+    }
+    
+    func notifyBelowLowerLimit() {
+        play(haptic: WKHapticType.directionDown)
+    }
 }
 
 
