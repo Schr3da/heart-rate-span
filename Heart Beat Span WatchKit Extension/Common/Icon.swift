@@ -9,12 +9,8 @@
 import SwiftUI
 
 struct Icon: View {
-    
-    private let ascii: String
-    
-    init(ascii: String) {
-        self.ascii = ascii
-    }
+
+    let ascii: String
     
     var body: some View {
         Text(ascii)

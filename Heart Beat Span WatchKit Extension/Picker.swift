@@ -12,13 +12,8 @@ struct HBSPicker: View {
     
     @Binding var value: Int
     
-    private let range: ClosedRange<Int>
-    
-    init(_ value: Binding<Int>, _ range: ClosedRange<Int>) {
-        self._value = value
-        self.range = range
-    }
-    
+    let range: ClosedRange<Int>
+        
     var body: some View {
         Picker(selection: $value, label: Text("")) {
             ForEach((range), id: \.self) { t in

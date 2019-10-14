@@ -12,13 +12,8 @@ typealias ColorCb = () -> Color
 
 struct TrackerLimitLabel: View {
     
-    private let title: String
-    private let color: ColorCb
-
-    init(title: String, color: @escaping ColorCb) {
-        self.title = title
-        self.color = color
-    }
+    let title: String
+    let color: ColorCb
     
     var body: some View {
         Text(title)

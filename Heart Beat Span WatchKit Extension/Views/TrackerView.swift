@@ -9,13 +9,13 @@ import SwiftUI
 
 struct TrackerView: View {
     
-    @Binding var uiState: UIStateEnum
-    @Binding var upperLimit: Int
-    @Binding var lowerLimit: Int
-    @Binding var heartrate: Int
-
+    let uiState: UIStateEnum
+    let upperLimit: Int
+    let lowerLimit: Int
+    let heartrate: Int
+    
     private func getHeartRate() -> String {
-        isStopped(state: uiState) || heartrate == 0 ?
+        isStopped(uiState: uiState) || heartrate == 0 ?
             "-" :
             "\(heartrate)"
     }
@@ -50,14 +50,13 @@ struct TrackerView: View {
                 )
             VStack {
                 TrackerLimitLabel(title: getUpperLimit(), color: { () in
-                    isRunning(state: self.uiState) && isAboveUpperLimit(value: self.heartrate, limit: self.upperLimit) ?
+                    isRunning(uiState: self.uiState) && isAboveUpperLimit(value: self.heartrate, limit: self.upperLimit) ?
                     Color.white : Color.gray
                 })
                 TrackerLimitLabel(title: getLowerLimit(), color: { () in
-                    isRunning(state: self.uiState) && isBellowLowerLimit(value: self.heartrate, limit: self.lowerLimit) ?
+                    isRunning(uiState: self.uiState) && isBellowLowerLimit(value: self.heartrate, limit: self.lowerLimit) ?
                     Color.white : Color.gray
                 })
-                
             }
         }
     }

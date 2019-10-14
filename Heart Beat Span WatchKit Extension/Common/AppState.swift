@@ -34,6 +34,7 @@ final class AppState: ObservableObject {
     
     static let startRange = 60
     static let endRange = 180
+    static let timestampLimit = 300.0
     
     private let file = HBSFileManager()
     private var workout = WorkoutManager()

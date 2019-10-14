@@ -15,19 +15,19 @@ func hasReachedTimestampLimit(date: Date!) -> Bool {
     
     let timestamp = date.timeIntervalSince1970
     let currentTimestamp = Date().timeIntervalSince1970
-    return currentTimestamp - timestamp > 300
+    return currentTimestamp - timestamp > AppState.timestampLimit
 }
 
-func isPreparing(state: UIStateEnum) -> Bool {
-    state == UIStateEnum.Prepare
+func isPreparing(uiState: UIStateEnum) -> Bool {
+    uiState == UIStateEnum.Prepare
 }
 
-func isRunning(state: UIStateEnum) -> Bool {
-    state == UIStateEnum.Running
+func isRunning(uiState: UIStateEnum) -> Bool {
+    uiState == UIStateEnum.Running
 }
 
-func isStopped(state: UIStateEnum) -> Bool {
-    state == UIStateEnum.Stopped
+func isStopped(uiState: UIStateEnum) -> Bool {
+    uiState == UIStateEnum.Stopped
 }
 
 func isInRange(value: Int, upperLimit: Int, lowerLimit: Int) -> Bool {

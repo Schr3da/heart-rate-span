@@ -12,12 +12,7 @@ struct LimitLabel: View {
     
     @Binding var value: Int
     
-    private let type: LimitType
-
-    init(value: Binding<Int>, type: LimitType) {
-        self.type = type
-        self._value = value
-    }
+    let type: LimitType
     
     private func getTitle() -> String {
         type == LimitType.Down ? "Lower Limit" : "Upper Limit"
@@ -37,7 +32,7 @@ struct LimitLabel: View {
                 .font(Font.system(size: 14.0))
             HStack {
                 Icon(ascii: Ascii.Heart.rawValue)
-                HBSPicker($value, getLimitRange())
+                HBSPicker(value: $value, range: getLimitRange())
                 Icon(ascii: getPrefix())
             }
         }

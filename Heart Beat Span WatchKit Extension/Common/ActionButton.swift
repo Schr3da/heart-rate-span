@@ -10,15 +10,9 @@ import SwiftUI
 
 struct ActionButton: View {
     
-    private let title: String
-    private let color: Color
-    private let onClick: () -> Void
-    
-    init(title: String, color: Color, onClick: @escaping () -> Void) {
-        self.title = title
-        self.color = color
-        self.onClick = onClick
-    }
+    let title: String
+    let color: Color
+    let onClick: () -> Void
     
     var body: some View {
         Button(action: self.onClick) {

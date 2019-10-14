@@ -9,14 +9,8 @@
 import Foundation
 
 struct HBSFileData: Codable {
-    
     let upperLimit: Int
     let lowerLimit: Int
-    
-    init(upperLimit: Int, lowerLimit: Int) {
-        self.upperLimit = upperLimit
-        self.lowerLimit = lowerLimit
-    }
 }
 
 class HBSFileManager {
@@ -31,7 +25,7 @@ class HBSFileManager {
     }
     
     func load() -> HBSFileData {
-        let defautValue = HBSFileData.init(
+        let defautValue = HBSFileData(
             upperLimit: 120,
             lowerLimit: 100
         )

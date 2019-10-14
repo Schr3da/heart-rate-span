@@ -23,15 +23,15 @@ struct ContentView: View {
         VStack {
             Spacer(minLength: 20)
             TrackerView(
-                uiState: $state.uiState,
-                upperLimit: $state.upperLimit,
-                lowerLimit: $state.lowerLimit,
-                heartrate: $state.heartRate
+                uiState: state.uiState,
+                upperLimit: state.upperLimit,
+                lowerLimit: state.lowerLimit,
+                heartrate: state.heartRate
             )
             Divider()
             ActionButton(
-                title: isStopped(state: state.uiState) ? "Track" : "Stop",
-                color: isStopped(state: state.uiState) ? Color.yellow : Color.red ,
+                title: isStopped(uiState: state.uiState) ? "Track" : "Stop",
+                color: isStopped(uiState: state.uiState) ? Color.yellow : Color.red ,
                 onClick: toggleTrack
             ).sheet(isPresented: $state.showPrepare) {
                 PrepareView()
@@ -43,8 +43,8 @@ struct ContentView: View {
                     upperLimit: self.state.upperLimit,
                     lowerLimit:  self.state.lowerLimit
                 ).environmentObject(self.state)
-            }.opacity(isStopped(state: state.uiState) ? 1 : 0.6)
-            .disabled(isRunning(state: state.uiState))
+            }.opacity(isStopped(uiState: state.uiState) ? 1 : 0.6)
+            .disabled(isRunning(uiState: state.uiState))
         }.alert(isPresented: $state.permissionDenied) { () -> Alert in
             Alert.init(
                 title: Text("Permission Denied"),
