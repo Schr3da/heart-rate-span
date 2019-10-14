@@ -150,5 +150,4 @@ class WorkoutSession: NSObject, HKLiveWorkoutBuilderDelegate {
             }
         }
     }
-    
 }

@@ -9,16 +9,17 @@
 import WatchKit
 
 class NotifyManager {
+    
     func play(haptic: WKHapticType) {
         WKInterfaceDevice.current().play(haptic)
     }
     
     func notifyAboveUpperLimit() {
-        play(haptic: WKHapticType.failure)
+        play(haptic: WKHapticType.retry)
     }
     
     func notifyBelowLowerLimit() {
-        play(haptic: WKHapticType.retry)
+        play(haptic: WKHapticType.failure)
     }
 }
 
