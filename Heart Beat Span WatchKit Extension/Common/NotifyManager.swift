@@ -14,11 +14,11 @@ class NotifyManager {
     }
     
     func notifyAboveUpperLimit() {
-        play(haptic: WKHapticType.directionUp)
+        play(haptic: WKHapticType.failure)
     }
     
     func notifyBelowLowerLimit() {
-        play(haptic: WKHapticType.directionDown)
+        play(haptic: WKHapticType.retry)
     }
 }
 
