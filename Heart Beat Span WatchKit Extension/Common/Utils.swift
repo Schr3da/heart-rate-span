@@ -15,7 +15,7 @@ func hasReachedTimestampLimit(date: Date!) -> Bool {
     
     let timestamp = date.timeIntervalSince1970
     let currentTimestamp = Date().timeIntervalSince1970
-    return currentTimestamp - timestamp > 180
+    return currentTimestamp - timestamp > 300
 }
 
 func isPreparing(state: UIStateEnum) -> Bool {

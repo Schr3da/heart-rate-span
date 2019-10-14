@@ -39,7 +39,6 @@ struct LimitLabel: View {
                 Icon(ascii: Ascii.Heart.rawValue)
                 HBSPicker($value, getLimitRange())
                 Icon(ascii: getPrefix())
-
             }
         }
     }
