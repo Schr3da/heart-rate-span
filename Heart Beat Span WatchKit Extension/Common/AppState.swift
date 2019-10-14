@@ -75,7 +75,7 @@ final class AppState: ObservableObject {
             }
         }
     }
-    
+       
     func startTracking() {
         DispatchQueue.main.async {
            self.uiState = UIStateEnum.Running

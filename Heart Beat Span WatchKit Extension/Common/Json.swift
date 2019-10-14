@@ -14,7 +14,6 @@ func JSONStringify(obj: HBSFileData, prettyPrinted: Bool = false) -> String {
         let string = String(data: data, encoding: .utf8)!
         return string
     } catch {
-        print(error)
         return ""
     }
 }

@@ -18,6 +18,9 @@ func hasReachedTimestampLimit(date: Date!) -> Bool {
     return currentTimestamp - timestamp > 180
 }
 
+func isStopped(state: UIStateEnum) -> Bool {
+    state == UIStateEnum.Stopped
+}
 
 func isInRange(value: Int, upperLimit: Int, lowerLimit: Int) -> Bool {
     isAboveUpperLimit(value: value, limit: upperLimit) == false &&

@@ -35,8 +35,8 @@ struct ContentView: View {
             )
             Divider()
             ActionButton(
-                title: state.uiState == UIStateEnum.Stopped  ? "Track" : "Stop",
-                color: state.uiState == UIStateEnum.Stopped ? Color.yellow : Color.red ,
+                title: isStopped(state: state.uiState) ? "Track" : "Stop",
+                color: isStopped(state: state.uiState) ? Color.yellow : Color.red ,
                 onClick: toggleTrack
             )
             ActionButton(title: "Settings", color: Color.white, onClick: toggleSettings )
@@ -45,8 +45,8 @@ struct ContentView: View {
                     upperLimit: self.state.upperLimit,
                     lowerLimit:  self.state.lowerLimit
                 ).environmentObject(self.state)
-            }.opacity(state.uiState == UIStateEnum.Stopped ? 1 : 0.6)
-            .disabled(state.uiState != UIStateEnum.Stopped)
+            }.opacity(isStopped(state: state.uiState) ? 1 : 0.6)
+            .disabled(isStopped(state: state.uiState))
         }.alert(isPresented: $state.permissionDenied) { () -> Alert in
             Alert.init(
                 title: Text("Permission Denied"),
