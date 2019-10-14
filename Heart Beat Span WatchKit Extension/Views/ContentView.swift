@@ -11,11 +11,6 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var state: AppState
-    @State var showSettings: Bool = false
-    
-    private func toggleSettings() {
-        showSettings = !showSettings
-    }
     
     private func toggleTrack() {
         state.uiState == UIStateEnum.Stopped ?
@@ -38,15 +33,18 @@ struct ContentView: View {
                 title: isStopped(state: state.uiState) ? "Track" : "Stop",
                 color: isStopped(state: state.uiState) ? Color.yellow : Color.red ,
                 onClick: toggleTrack
-            )
-            ActionButton(title: "Settings", color: Color.white, onClick: toggleSettings )
-            .sheet(isPresented: $showSettings) {
+            ).sheet(isPresented: $state.showPrepare) {
+                PrepareView()
+                .environmentObject(self.state)
+            }
+            ActionButton(title: "Settings", color: Color.white, onClick: state.toggleSettings)
+            .sheet(isPresented: $state.showSettings) {
                 SettingsView(
                     upperLimit: self.state.upperLimit,
                     lowerLimit:  self.state.lowerLimit
                 ).environmentObject(self.state)
             }.opacity(isStopped(state: state.uiState) ? 1 : 0.6)
-            .disabled(isStopped(state: state.uiState))
+            .disabled(isRunning(state: state.uiState))
         }.alert(isPresented: $state.permissionDenied) { () -> Alert in
             Alert.init(
                 title: Text("Permission Denied"),

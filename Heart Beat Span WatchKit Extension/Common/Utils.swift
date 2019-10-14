@@ -18,6 +18,14 @@ func hasReachedTimestampLimit(date: Date!) -> Bool {
     return currentTimestamp - timestamp > 180
 }
 
+func isPreparing(state: UIStateEnum) -> Bool {
+    state == UIStateEnum.Prepare
+}
+
+func isRunning(state: UIStateEnum) -> Bool {
+    state == UIStateEnum.Running
+}
+
 func isStopped(state: UIStateEnum) -> Bool {
     state == UIStateEnum.Stopped
 }

@@ -14,16 +14,8 @@ struct TrackerView: View {
     @Binding var lowerLimit: Int
     @Binding var heartrate: Int
 
-    private func isTracking() -> Bool {
-        uiState == UIStateEnum.Running
-    }
-    
-    private func hasStopped() -> Bool {
-        uiState == UIStateEnum.Stopped
-    }
-
     private func getHeartRate() -> String {
-        hasStopped() || heartrate == 0 ?
+        isStopped(state: uiState) || heartrate == 0 ?
             "-" :
             "\(heartrate)"
     }
@@ -58,11 +50,11 @@ struct TrackerView: View {
                 )
             VStack {
                 TrackerLimitLabel(title: getUpperLimit(), color: { () in
-                    self.isTracking() && isAboveUpperLimit(value: self.heartrate, limit: self.upperLimit) ?
+                    isRunning(state: self.uiState) && isAboveUpperLimit(value: self.heartrate, limit: self.upperLimit) ?
                     Color.white : Color.gray
                 })
                 TrackerLimitLabel(title: getLowerLimit(), color: { () in
-                    self.isTracking() && isBellowLowerLimit(value: self.heartrate, limit: self.lowerLimit) ?
+                    isRunning(state: self.uiState) && isBellowLowerLimit(value: self.heartrate, limit: self.lowerLimit) ?
                     Color.white : Color.gray
                 })
                 

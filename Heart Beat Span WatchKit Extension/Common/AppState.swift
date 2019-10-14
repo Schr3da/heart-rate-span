@@ -29,6 +29,8 @@ final class AppState: ObservableObject {
     @Published var lowerLimit = 0
     @Published var heartRate = 0
     @Published var permissionDenied = false
+    @Published var showSettings = false
+    @Published var showPrepare = false
     
     static let startRange = 60
     static let endRange = 180
@@ -61,7 +63,11 @@ final class AppState: ObservableObject {
         )
         file.write(data: toSave)
     }
-        
+    
+    func toggleSettings() {
+        showSettings = !showSettings
+    }
+    
     func prepareTracking() {
         heartRate = 0;
         workout.start(upperLimit: upperLimit, lowerLimit: lowerLimit) { (hasPermission) in
@@ -71,6 +77,7 @@ final class AppState: ObservableObject {
                     self.stopTracking()
                 } else {
                     self.uiState = UIStateEnum.Prepare
+                    self.showPrepare = true
                 }
             }
         }
@@ -78,7 +85,8 @@ final class AppState: ObservableObject {
        
     func startTracking() {
         DispatchQueue.main.async {
-           self.uiState = UIStateEnum.Running
+            self.uiState = UIStateEnum.Running
+            self.showPrepare = false
         }
     }
     
@@ -90,7 +98,9 @@ final class AppState: ObservableObject {
     
     func stopTracking() {
         DispatchQueue.main.async {
-            self.heartRate = 0;
+            self.heartRate = 0
+            self.showSettings = false
+            self.showPrepare = false
             self.uiState = UIStateEnum.Stopped
             self.workout.stop()
         }
