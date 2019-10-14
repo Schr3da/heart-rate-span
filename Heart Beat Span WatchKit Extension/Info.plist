@@ -31,9 +31,9 @@
 		<string>com.apple.watchkit</string>
 	</dict>
 	<key>NSHealthShareUsageDescription</key>
-	<string>HBS requires access to your heartrate to work</string>
+	<string>HBS requires access to your heartrate to work properly</string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>HBS requires access to your heartrate to work</string>
+	<string>HBS requires access to your heartrate to work properly</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>

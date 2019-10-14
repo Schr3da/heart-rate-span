@@ -45,8 +45,7 @@ class WorkoutSession: NSObject, HKLiveWorkoutBuilderDelegate {
     }
     
     static func typesToRead() -> Set<HKQuantityType> {
-        [HKQuantityType.quantityType(forIdentifier: .heartRate)!,
-        HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!]
+        [HKQuantityType.quantityType(forIdentifier: .heartRate)!]
     }
         
     private func handleTimestampLimit(heartRate: Int) {
