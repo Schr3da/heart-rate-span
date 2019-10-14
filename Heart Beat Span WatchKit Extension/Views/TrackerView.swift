@@ -58,11 +58,11 @@ struct TrackerView: View {
                 )
             VStack {
                 TrackerLimitLabel(title: getUpperLimit(), color: { () in
-                    self.isTracking() && self.heartrate > self.upperLimit ?
+                    self.isTracking() && isAboveUpperLimit(value: self.heartrate, limit: self.upperLimit) ?
                     Color.white : Color.gray
                 })
                 TrackerLimitLabel(title: getLowerLimit(), color: { () in
-                    self.isTracking() && self.heartrate < self.lowerLimit ?
+                    self.isTracking() && isBellowLowerLimit(value: self.heartrate, limit: self.lowerLimit) ?
                     Color.white : Color.gray
                 })
                 
