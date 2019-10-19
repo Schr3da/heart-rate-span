@@ -534,7 +534,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.schreda.Heart-Beat-Span.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sample.Heart-Beat-Span.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "Heart Beat Span WatchKit Extension";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -557,7 +557,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.schreda.Heart-Beat-Span.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sample.Heart-Beat-Span.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "Heart Beat Span WatchKit Extension";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -577,7 +577,7 @@
 				DEVELOPMENT_TEAM = 9CMVRFF8P9;
 				IBSC_MODULE = Heart_Beat_Span_WatchKit_Extension;
 				INFOPLIST_FILE = "Heart Beat Span WatchKit App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.schreda.Heart-Beat-Span.watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sample.Heart-Beat-Span.watchkitapp";
 				PRODUCT_NAME = HBS;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -597,7 +597,7 @@
 				DEVELOPMENT_TEAM = 9CMVRFF8P9;
 				IBSC_MODULE = Heart_Beat_Span_WatchKit_Extension;
 				INFOPLIST_FILE = "Heart Beat Span WatchKit App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.schreda.Heart-Beat-Span.watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sample.Heart-Beat-Span.watchkitapp";
 				PRODUCT_NAME = HBS;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -614,7 +614,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9CMVRFF8P9;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.schreda.Heart-Beat-Span";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sample.Heart-Beat-Span";
 				PRODUCT_NAME = HBS;
 				SWIFT_VERSION = 5.0;
 			};
@@ -627,7 +627,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9CMVRFF8P9;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.schreda.Heart-Beat-Span";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sample.Heart-Beat-Span";
 				PRODUCT_NAME = HBS;
 				SWIFT_VERSION = 5.0;
 			};
