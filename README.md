@@ -1,5 +1,5 @@
 
-![](./design/app.svg)
+![](./design/app.svg | width=48)
 
 # DISCLAIMER 
 
