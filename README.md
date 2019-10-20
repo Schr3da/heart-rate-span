@@ -1,4 +1,4 @@
-<img src="./design/app.svg" width="48">
+<img src="./design/app.svg" width="180">
 
 # DISCLAIMER 
 
